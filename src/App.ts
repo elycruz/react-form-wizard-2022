@@ -1,4 +1,6 @@
 import * as React from 'react';
+import Link from 'next/link'
+
 import fieldsetsRequirements from "./data/intake-form.json";
 
 const fieldsetsData = Object.assign({}, fieldsetsRequirements.fieldsets);
@@ -15,7 +17,7 @@ function App(props) {
         <ul>
           {
             Object.keys(fieldsetsData).map(k => (
-              <li key={k}><a href={`/${k}`}>{fieldsetsData[k].legend}</a></li>
+              <li key={k}><Link href={`/${k}`}>{fieldsetsData[k].legend}</Link></li>
             ))
           }
         </ul>
