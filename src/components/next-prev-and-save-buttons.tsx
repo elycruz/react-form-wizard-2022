@@ -1,6 +1,12 @@
 import * as React from "react";
 
-export function NextPrevAndSaveButtons({nextPage, prevPage, saveAction}) {
+export interface NextPrevAndSaveButtonsProps {
+  nextPage?: string;
+  prevPage?: string;
+  saveAction?: string;
+}
+
+export function NextPrevAndSaveButtons({nextPage, prevPage, saveAction}: NextPrevAndSaveButtonsProps) {
   return (<React.Fragment>
     <button type="reset">Reset</button>
     {!prevPage ? null : (
