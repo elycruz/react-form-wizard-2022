@@ -1,0 +1,37 @@
+:root {
+  --x-primary-hsl-1: hsl(240, 75%, 16%);
+  --x-primary-hsl-2: hsl(240, 75%, 32%);
+  --x-primary-hsl-3: hsl(240, 75%, 48%);
+  --x-primary-hsl-4: hsl(240, 75%, 64%);
+  --x-primary-hsl-5: hsl(240, 75%, 80%);
+  --x-secondary-hsl-1: hsl(300, 75%, 16%);
+  --x-secondary-hsl-2: hsl(300, 75%, 32%);
+  --x-secondary-hsl-3: hsl(300, 75%, 48%);
+  --x-secondary-hsl-4: hsl(300, 75%, 64%);
+  --x-secondary-hsl-5: hsl(300, 75%, 80%);
+  --x-success-hsl-1: hsl(120, 75%, 16%);
+  --x-success-hsl-2: hsl(120, 75%, 32%);
+  --x-success-hsl-3: hsl(120, 75%, 48%);
+  --x-success-hsl-4: hsl(120, 75%, 64%);
+  --x-success-hsl-5: hsl(120, 75%, 80%);
+  --x-info-hsl-1: hsl(180, 75%, 16%);
+  --x-info-hsl-2: hsl(180, 75%, 32%);
+  --x-info-hsl-3: hsl(180, 75%, 48%);
+  --x-info-hsl-4: hsl(180, 75%, 64%);
+  --x-info-hsl-5: hsl(180, 75%, 80%);
+  --x-warning-hsl-1: hsl(30, 75%, 16%);
+  --x-warning-hsl-2: hsl(30, 75%, 32%);
+  --x-warning-hsl-3: hsl(30, 75%, 48%);
+  --x-warning-hsl-4: hsl(30, 75%, 64%);
+  --x-warning-hsl-5: hsl(30, 75%, 80%);
+  --x-danger-hsl-1: hsl(0, 75%, 16%);
+  --x-danger-hsl-2: hsl(0, 75%, 32%);
+  --x-danger-hsl-3: hsl(0, 75%, 48%);
+  --x-danger-hsl-4: hsl(0, 75%, 64%);
+  --x-danger-hsl-5: hsl(0, 75%, 80%);
+  --x-neutral-hsl-1: hsl(0, 0%, 16%);
+  --x-neutral-hsl-2: hsl(0, 0%, 32%);
+  --x-neutral-hsl-3: hsl(0, 0%, 48%);
+  --x-neutral-hsl-4: hsl(0, 0%, 64%);
+  --x-neutral-hsl-5: hsl(0, 0%, 80%)
+}
