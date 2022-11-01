@@ -21,7 +21,7 @@
       "state": null,
       "zip": null
     },
-    "contact_info": {
+    "contact-info": {
       "order": 2,
       "legend": "Contact Info",
       "email": {

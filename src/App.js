@@ -1,11 +1,9 @@
-import './App.css';
 import * as React from 'react';
-import {UserForm} from "./pages/user-form";
 import fieldsetsRequirements from "./data/intake-form.json";
 
 const fieldsetsData = Object.assign({}, fieldsetsRequirements.fieldsets);
 
-function App() {
+function App(props) {
   return (
     <React.Fragment>
       <header>
@@ -18,11 +16,11 @@ function App() {
           <ul>
             {
               Object.keys(fieldsetsData).map(k => (
-                <li><a href={`#/${k}`}>{fieldsetsData[k].legend}</a></li>
+                <li key={k}><a href={`/${k}`}>{fieldsetsData[k].legend}</a></li>
               ))
             }
           </ul>
-          <UserForm />
+          {props.children}
         </div>
       </main>
       <footer>

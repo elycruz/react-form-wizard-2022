@@ -1,2 +1,17 @@
 @import url(base/index.css);
 @import url(modules/index.css);
+
+#root > * {
+  display: grid;
+  width: 100%;
+  place-content: center;
+}
+
+#root > * > * {
+  max-width: 1280px;
+  margin: auto;
+}
+
+:is([type="checkbox"], [type="radio"]):has( + label) {
+  margin-right: var(--x-8px);
+}
