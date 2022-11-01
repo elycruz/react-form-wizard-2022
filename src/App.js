@@ -1,6 +1,9 @@
 import './App.css';
 import * as React from 'react';
 import {UserForm} from "./pages/user-form";
+import fieldsetsRequirements from "./data/intake-form.json";
+
+const fieldsetsData = Object.assign({}, fieldsetsRequirements.fieldsets);
 
 function App() {
   return (
@@ -12,7 +15,14 @@ function App() {
       </header>
       <main>
         <div>
-          <UserForm/>
+          <ul>
+            {
+              Object.keys(fieldsetsData).map(k => (
+                <li><a href={`#/${k}`}>{fieldsetsData[k].legend}</a></li>
+              ))
+            }
+          </ul>
+          <UserForm />
         </div>
       </main>
       <footer>

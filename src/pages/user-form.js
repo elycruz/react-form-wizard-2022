@@ -2,11 +2,12 @@ import {AddressFields} from "../components/address-fields";
 import {NameFields} from "../components/name-fields";
 import {ContactFields} from "../components/contact-fields";
 import {OtherFields} from "../components/other-fields";
+import {NextPrevAndSaveButtons} from "../components/next-prev-and-save-buttons";
 
 export function UserForm() {
-  return (<section>
+  return (<section className="x-section">
     <header>
-      <h3>User Info</h3>
+      <h2>User Info</h2>
     </header>
 
     <form action="#">
@@ -26,6 +27,7 @@ export function UserForm() {
         <legend>Other</legend>
         <OtherFields/>
       </fieldset>
+      <fieldset><NextPrevAndSaveButtons/></fieldset>
     </form>
 
   </section>)
