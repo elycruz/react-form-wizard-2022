@@ -5,7 +5,7 @@ import {ContactFields} from "../src/components/contact-fields";
 export default function ContactInfoPage() {
   return (
     <React.Fragment>
-      <IntakeFormLayout>
+      <IntakeFormLayout prevPage={'address'} nextPage={'other'} formAction={'/contact-info'}>
         <fieldset className="x-fieldset--grid-2 x-grid">
           <legend>Contact Info</legend>
           <ContactFields/>

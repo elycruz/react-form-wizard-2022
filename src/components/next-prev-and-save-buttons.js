@@ -1,9 +1,20 @@
 import * as React from "react";
 
-export function NextPrevAndSaveButtons() {
+export function NextPrevAndSaveButtons({nextPage, prevPage, saveAction}) {
   return (<React.Fragment>
-    <button className="next-btn" value="next">Next</button>
-    <button className="prev-btn" value="prev">Prev</button>
-    <button className="save-btn" value="save" disabled>Save</button>
+    <button type="reset">Reset</button>
+    {!prevPage ? null : (
+      <button className="prev-btn" value="prev"
+              formAction={prevPage}
+              formNoValidate>Prev
+      </button>
+    )}
+    {!nextPage ? null : (
+      <button className="next-btn" value="next"
+              formAction={nextPage}
+              formNoValidate>Next
+      </button>
+    )}
+    <button className="save-btn" value="save" formAction={saveAction}>Save</button>
   </React.Fragment>)
 }
