@@ -3,7 +3,7 @@ import {PropsWithChildren, ReactNode} from "react";
 import Link from 'next/link'
 
 import fieldsetsRequirements from "./data/intake-form.json";
-import {IntakeFormData} from "./models";
+import {IntakeFormData} from "./data/models";
 
 export interface FieldsetConfig {
   order?: number;

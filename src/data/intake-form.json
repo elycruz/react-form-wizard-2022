@@ -1,7 +1,7 @@
 {
-  "fieldsets": {
-    "name": {
-      "order": 0,
+  "fieldsets": [
+    {
+      "name": "name",
       "legend": "Name",
       "fields": {
         "first": {
@@ -13,8 +13,8 @@
         }
       }
     },
-    "address": {
-      "order": 1,
+    {
+      "name": "address",
       "legend": "Address",
       "required": true,
       "fields": {
@@ -24,8 +24,8 @@
         "zip": null
       }
     },
-    "contact-info": {
-      "order": 2,
+    {
+      "name": "contact-info",
       "legend": "Contact Info",
       "fields": {
         "email": {
@@ -34,12 +34,12 @@
         "phone": null
       }
     },
-    "other": {
-      "order": 3,
+    {
+      "name": "other",
       "legend": "Other",
       "fields": {
         "cookies-today": null
       }
     }
-  }
+  ]
 }
