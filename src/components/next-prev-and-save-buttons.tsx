@@ -21,6 +21,6 @@ export function NextPrevAndSaveButtons({nextPage, prevPage, saveAction}: NextPre
               formNoValidate>Next
       </button>
     )}
-    <button className="save-btn" value="save" formAction={saveAction}>Save</button>
+    <button className="save-btn" value="save">Save</button>
   </React.Fragment>)
 }

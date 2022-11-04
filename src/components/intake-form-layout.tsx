@@ -1,16 +1,33 @@
 import * as React from "react";
 import {NextPrevAndSaveButtons} from "./next-prev-and-save-buttons";
-import {MouseEventHandler} from "react";
+import {FormEventHandler, MouseEventHandler} from "react";
+import {IntakeFormData} from "../models";
+import intakeFormConfig from "../data/intake-form.json";
 
 export interface IntakeFormLayoutProps extends React.PropsWithChildren {
+  name?: string,
   nextPage?: string,
   prevPage?: string,
-  formAction?: string,
+  action?: string,
+  method?: string,
 }
 
 export class IntakeFormLayout extends React.Component<IntakeFormLayoutProps> {
-  onClick = (e: MouseEvent): void => {
-    const form = e.currentTarget,
+  static defaultProps = {
+    method: 'POST'
+  };
+
+  state = {} as IntakeFormData;
+
+  onSubmit = (e: SubmitEvent): void => {
+    const form = e.currentTarget as HTMLFormElement;
+    e.preventDefault();
+    this.setState({
+      [form.name]:
+        Object.fromEntries(new FormData(form).entries()) as unknown as any
+    });
+    console.log(this.state);
+/*,
       elm = e.target as HTMLButtonElement;
 
     // Only handle prev, next, and save buttons, here.
@@ -24,17 +41,21 @@ export class IntakeFormLayout extends React.Component<IntakeFormLayoutProps> {
       case 'next':
         break;
       case 'save':
+
         break;
       default:
         break;
-    }
+    }*/
   };
 
   render() {
-    const {props: {formAction, children, nextPage, prevPage}} = this;
+    const {props: {action, method, children, nextPage, prevPage, name}} = this;
     return (
       <React.Fragment>
-        <form action={formAction} onClick={this.onClick as unknown as MouseEventHandler<HTMLFormElement>}>
+        <form name={name}
+              action={action}
+              method={method}
+              onSubmit={this.onSubmit as unknown as FormEventHandler<HTMLFormElement>}>
           {children}
           <fieldset>
             <NextPrevAndSaveButtons nextPage={nextPage} prevPage={prevPage}/>

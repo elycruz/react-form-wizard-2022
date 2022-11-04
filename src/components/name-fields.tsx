@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FIRST_NAME_SYMBOL, LAST_NAME_SYMBOL, MIDDLE_INITIAL_SYMBOL} from "../data/constants";
+import {FIRST_NAME_SYMBOL, LAST_NAME_SYMBOL, MIDDLE_NAME_SYMBOL} from "../data/constants";
 
 export interface NameFieldsProps {
   firstNameSymbol: string,
@@ -10,7 +10,7 @@ export interface NameFieldsProps {
 // temporary declaration
 const firstNameSymbol = FIRST_NAME_SYMBOL,
   lastNameSymbol = LAST_NAME_SYMBOL,
-  middleInitialSymbol = MIDDLE_INITIAL_SYMBOL
+  middleInitialSymbol = MIDDLE_NAME_SYMBOL
 ;
 
 export function NameFields(/*{

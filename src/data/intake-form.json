@@ -3,36 +3,43 @@
     "name": {
       "order": 0,
       "legend": "Name",
-      "first-name": {
-        "required": true
-      },
-      "middle-initial": null,
-      "last-name": {
-        "required": true
+      "fields": {
+        "first": {
+          "required": true
+        },
+        "middle": null,
+        "last": {
+          "required": true
+        }
       }
     },
     "address": {
       "order": 1,
       "legend": "Address",
-      "href": "address",
       "required": true,
-      "address": null,
-      "city": null,
-      "state": null,
-      "zip": null
+      "fields": {
+        "address": null,
+        "city": null,
+        "state": null,
+        "zip": null
+      }
     },
     "contact-info": {
       "order": 2,
       "legend": "Contact Info",
-      "email": {
-        "required": true
-      },
-      "phone": null
+      "fields": {
+        "email": {
+          "required": true
+        },
+        "phone": null
+      }
     },
     "other": {
       "order": 3,
       "legend": "Other",
-      "cookies-today": null
+      "fields": {
+        "cookies-today": null
+      }
     }
   }
 }

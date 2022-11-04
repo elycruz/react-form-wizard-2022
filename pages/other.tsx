@@ -5,7 +5,7 @@ import {OtherFields} from "../src/components/other-fields";
 export default function OtherPage() {
   return (
     <React.Fragment>
-      <IntakeFormLayout prevPage={'contact-info'} formAction={'/other'}>
+      <IntakeFormLayout prevPage={'contact-info'} action={'/other'}>
         <fieldset className="x-fieldset--grid-2 x-grid">
           <legend>Other</legend>
           <OtherFields/>
