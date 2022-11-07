@@ -1,2 +1,2 @@
-export const nameValuesPost = () => fetch('api/name', {})
+export const nameFieldsPost = () => fetch('api/name', {})
   .then(res => res.json());

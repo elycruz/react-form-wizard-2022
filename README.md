@@ -2,6 +2,15 @@
 
 A form wizard (survey form, intake form, etc.) application, showcasing the use of nextjs v13+ and react v18+.
 
+## Features
+
+- [x] Standalone Name, Contact, Address, and Other fieldset fields.
+- [ ] Login form.
+- [ ] CSRF protection - (placeholders added)
+- [ ] "No JS" version of app (using Next.js SSR, and business logic).
+- [ ] Faux data storage (storing things in memory (currently) though requires unique keys per session + email combination).
+- [ ] @todo et al.
+
 *create-react-app* README output follows. 
 
 # Getting Started with Create React App

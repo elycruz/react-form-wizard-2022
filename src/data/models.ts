@@ -42,3 +42,8 @@ export interface Fieldset extends Field {
   next?: string, // Next fieldset name
   prev?: string // Prev. ""
 }
+
+export interface User {
+  visitCount?: number,
+  intakeForm?: IntakeFormData
+}

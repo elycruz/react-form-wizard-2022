@@ -41,16 +41,18 @@ export class TextInput implements Required<TextInputOptions>, InputConstraints {
   async = false;
 
   /**
-   * Function used to obscure validation `value` in validation result.  Optional.
+   * Function used to obscure validation `value`, in validation result.  Optional.
    */
   valueObscurer: (x?: string) => string;
 
-  constructor(props: TextInputOptions) {
+  constructor(props?: TextInputOptions) {
     Object.assign(props);
   }
 
   validate(x?: string): ValidationResult {
     let result = false;
+
+
     return {
       result
     };

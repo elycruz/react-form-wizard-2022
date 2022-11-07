@@ -1,0 +1,4 @@
+.intake-form-layout:invalid :is(button:not([type]), button[type="submit"]) {
+  pointer-events: none;
+  opacity: 0.5;
+}
