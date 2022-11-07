@@ -3,7 +3,7 @@ import {ADDRESS_SYMBOL, CONTACT_INFO_SYMBOL, NAME_SYMBOL, OTHER_SYMBOL} from "..
 
 export default function intakeFormHandler(req, res) {
   const {query: {fieldsetName}} = req;
-  if (!fieldsetName || Object.hasOwn(intakeFormHandler, fieldsetName)) {
+  if (!fieldsetName || !Object.hasOwn(intakeFormHandler, fieldsetName)) {
     return res.status(404).json({
       error: 'Endpoint not found'
     });
