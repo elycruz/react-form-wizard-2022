@@ -37,5 +37,8 @@ export interface Field {
 
 export interface Fieldset extends Field {
   legend?: string;
-  fields?: {[index: string]: Field}
+  fields?: { [index: string]: Field },
+  action?: string,
+  next?: string, // Next fieldset name
+  prev?: string // Prev. ""
 }

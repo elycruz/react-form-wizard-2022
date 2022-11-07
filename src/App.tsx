@@ -2,15 +2,13 @@ import * as React from 'react';
 import {PropsWithChildren, ReactNode} from "react";
 import Link from 'next/link'
 
-import fieldsetsRequirements from "./data/intake-form.json";
+import {fieldsetsList} from "./data/fieldsetConfigs";
 import {IntakeFormData} from "./data/models";
 
 export interface FieldsetConfig {
   order?: number;
   legend?: string;
 }
-
-const fieldsetsData = Object.assign({}, fieldsetsRequirements.fieldsets) as { [index: string]: FieldsetConfig };
 
 interface AppProps extends PropsWithChildren {
 }
@@ -34,8 +32,8 @@ export class App extends React.Component<AppProps, any> {
         <div>
           <ul>
             {
-              Object.keys(fieldsetsData).map((k) => (
-                <li key={k}><Link href={`/${k}`}>{fieldsetsData[k].legend}</Link></li>
+              fieldsetsList.map((k) => (
+                <li key={`${k.name}-fieldset`}><Link href={`/${k.name}`}>{k.legend}</Link></li>
               ))
             }
           </ul>

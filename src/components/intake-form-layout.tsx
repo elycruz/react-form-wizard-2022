@@ -2,7 +2,6 @@ import * as React from "react";
 import {NextPrevAndSaveButtons} from "./next-prev-and-save-buttons";
 import {FormEventHandler, MouseEventHandler} from "react";
 import {IntakeFormData} from "../data/models";
-import intakeFormConfig from "../data/intake-form.json";
 
 export interface IntakeFormLayoutProps extends React.PropsWithChildren {
   name?: string,
@@ -20,13 +19,13 @@ export class IntakeFormLayout extends React.Component<IntakeFormLayoutProps> {
   state = {} as IntakeFormData;
 
   onSubmit = (e: SubmitEvent): void => {
-    const form = e.currentTarget as HTMLFormElement;
+/*    const form = e.currentTarget as HTMLFormElement;
     e.preventDefault();
     this.setState({
       [form.name]:
         Object.fromEntries(new FormData(form).entries()) as unknown as any
     });
-    console.log(this.state);
+    console.log(this.state);*/
 /*,
       elm = e.target as HTMLButtonElement;
 
