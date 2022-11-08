@@ -1,23 +1,23 @@
 import * as React from "react";
 
 export interface NextPrevAndSaveButtonsProps {
-  nextPage?: string;
-  prevPage?: string;
+  nextAction?: string;
+  prevAction?: string;
   saveAction?: string;
 }
 
-export function NextPrevAndSaveButtons({nextPage, prevPage, saveAction}: NextPrevAndSaveButtonsProps) {
+export function NextPrevAndSaveButtons({nextAction, prevAction}: NextPrevAndSaveButtonsProps) {
   return (<React.Fragment>
     <button type="reset">Reset</button>
-    {!prevPage ? null : (
+    {!prevAction ? null : (
       <button className="prev-btn" value="prev"
-              formAction={prevPage}
+              formAction={prevAction}
               formNoValidate>Prev
       </button>
     )}
-    {!nextPage ? null : (
+    {!nextAction ? null : (
       <button className="next-btn" value="next"
-              formAction={nextPage}
+              formAction={nextAction}
               formNoValidate>Next
       </button>
     )}

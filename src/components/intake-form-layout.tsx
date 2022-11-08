@@ -5,8 +5,8 @@ import {IntakeFormData} from "../data/models";
 
 export interface IntakeFormLayoutProps extends React.PropsWithChildren {
   name?: string,
-  nextPage?: string,
-  prevPage?: string,
+  nextAction?: string,
+  prevAction?: string,
   action?: string,
   method?: string,
   csrfToken?: string,
@@ -50,7 +50,7 @@ export class IntakeFormLayout extends React.Component<IntakeFormLayoutProps> {
   };
 
   render() {
-    const {props: {action, method, children, nextPage, prevPage, name, csrfTokenName, csrfToken}} = this;
+    const {props: {action, method, children, nextAction, prevAction, name, csrfTokenName, csrfToken}} = this;
     return (
       <React.Fragment>
         <form
@@ -61,7 +61,7 @@ export class IntakeFormLayout extends React.Component<IntakeFormLayoutProps> {
           onSubmit={this.onSubmit as unknown as FormEventHandler<HTMLFormElement>}>
           {children}
           <fieldset>
-            <NextPrevAndSaveButtons nextPage={nextPage} prevPage={prevPage}/>
+            <NextPrevAndSaveButtons nextAction={nextAction} prevAction={prevAction}/>
           </fieldset>
           <input type="hidden" name={csrfTokenName} value={csrfToken} />
         </form>

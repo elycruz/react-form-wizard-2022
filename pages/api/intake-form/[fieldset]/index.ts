@@ -1,15 +1,19 @@
-import {AddressData, ContactInfoData, NameData, OtherData} from "../../../src/data/models";
-import {ADDRESS_SYMBOL, CONTACT_INFO_SYMBOL, NAME_SYMBOL, OTHER_SYMBOL} from "../../../src/data/constants";
-import {sessionConfig} from '../../../middleware';
-import {fieldsetConfigsByName} from "../../../src/data/fieldsetConfigs";
-import {serverStore as storage} from '../../../server';
+import {AddressData, ContactInfoData, NameData, OtherData} from "../../../../src/data/models";
+import {ADDRESS_SYMBOL, CONTACT_INFO_SYMBOL, NAME_SYMBOL, OTHER_SYMBOL} from "../../../../src/data/constants";
+import {sessionConfig} from '../../../../middleware';
+import {fieldsetConfigsByName} from "../../../../src/data/fieldsetConfigs";
+import {serverStore as storage} from '../../../../server';
 import {withIronSessionApiRoute} from "iron-session/next";
+import {NextApiRequest, NextApiResponse} from "next";
 
 export default withIronSessionApiRoute(intakeFormHandler, sessionConfig);
 
-async function intakeFormHandler(req, res) {
-  const {query: {fieldsetName}} = req,
-    {[fieldsetName]: fieldsetConfig} = fieldsetConfigsByName;
+async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
+
+  console.log('[fieldset] handler');
+
+  const {query: {fieldset: fieldsetName, redirectUri = req.url}} = req,
+    {[fieldsetName as string]: fieldsetConfig} = fieldsetConfigsByName;
 
   if (!fieldsetName || !fieldsetConfig) {
     return res.status(404).json({
@@ -18,7 +22,7 @@ async function intakeFormHandler(req, res) {
   }
 
   const {session, session: {user}} = req;
-console.log(req.query)
+
   switch (req.method) {
     case 'POST':
       // Pseudo:
@@ -27,30 +31,31 @@ console.log(req.query)
       //   Return CREATED status with success message
       //   If validation failed return NOT_ALLOWED response with message
 
+      const {intakeForm = {}} = user;
+
       // Pseudo "Create" action
-      user.intakeForm = Object.assign({}, user.intakeForm || {}, Object.keys(fieldsetConfig.fields)
+      intakeForm[fieldsetConfig.name] = Object.assign({}, intakeForm[fieldsetConfig.name] || {}, Object.keys(fieldsetConfig.fields)
         .reduce((agg, k) => {
-          if (!!req.query[k]) {
-            agg[k] = req.query[k]
+          if (!!req.body[k]) {
+            agg[k] = req.body[k]
           }
           return agg;
         }, {}));
 
-      storage.set(Math.random(), user);
+      user.intakeForm = intakeForm;
+
+      storage.set(user.id, user);
 
       await session.save();
       console.log('User data:', user);
-      return res.redirect(200, `/${fieldsetConfig.next}`);
+      return res.redirect(307, redirectUri as string);
     case 'PUT':
-      break;
     case'GET':
-      break;
     case 'DELETE':
-      break;
     default:
       break;
   }
-  res.status(200).json({message: 'hello'});
+  // res.status(200).json({message: 'hello'});
 }
 
 const handleNameFieldset = (data: NameData) => {
