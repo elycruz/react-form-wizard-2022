@@ -19,14 +19,27 @@ code {
 :is(#root, #__next) > * {
   display: grid;
   width: 100%;
-  place-content: center;
+  /*place-content: center;*/
 }
 
 :is(#root, #__next) > * > * {
+  padding: 0.5rem;
   max-width: 1280px;
+  min-width: 89%;
   margin: auto;
+}
+
+:is(#root, #__next) > main > div {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: auto  75%;
 }
 
 :is([type="checkbox"], [type="radio"]):has( + label) {
   margin-right: var(--x-8px);
+}
+
+.intake-form-layout:invalid :is(button:not([type]), button[type="submit"]) {
+  pointer-events: none;
+  opacity: 0.5;
 }

@@ -44,6 +44,7 @@ export interface Fieldset extends Field {
 }
 
 export interface User {
+  id: number,
   visitCount?: number,
   intakeForm?: IntakeFormData
 }

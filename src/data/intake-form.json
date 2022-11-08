@@ -1,6 +1,16 @@
 {
   "fieldsets": [
     {
+      "name": "contact-info",
+      "legend": "Contact Info",
+      "fields": {
+        "email": {
+          "required": true
+        },
+        "phone": null
+      }
+    },
+    {
       "name": "name",
       "legend": "Name",
       "fields": {
@@ -22,16 +32,6 @@
         "city": null,
         "state": null,
         "zip": null
-      }
-    },
-    {
-      "name": "contact-info",
-      "legend": "Contact Info",
-      "fields": {
-        "email": {
-          "required": true
-        },
-        "phone": null
       }
     },
     {

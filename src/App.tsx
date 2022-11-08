@@ -5,12 +5,8 @@ import Link from 'next/link'
 import {fieldsetsList} from "./data/fieldsetConfigs";
 import {IntakeFormData} from "./data/models";
 
-export interface FieldsetConfig {
-  order?: number;
-  legend?: string;
-}
-
 interface AppProps extends PropsWithChildren {
+  intakeFormStarted?: boolean
 }
 
 export interface ClientAppContext {
@@ -21,7 +17,7 @@ export class App extends React.Component<AppProps, any> {
   context = React.createContext({}) as React.Context<ClientAppContext>;
 
   render() {
-    const {props: {children}} = this;
+    const {props: {children, intakeFormStarted}} = this;
     return (<React.Fragment>
       <header>
         <div>
@@ -30,13 +26,13 @@ export class App extends React.Component<AppProps, any> {
       </header>
       <main>
         <div>
-          <ul>
+          {intakeFormStarted && (<ul>
             {
               fieldsetsList.map((k) => (
                 <li key={`${k.name}-fieldset`}><Link href={`/${k.name}`}>{k.legend}</Link></li>
               ))
             }
-          </ul>
+          </ul>)}
           {children}
         </div>
       </main>

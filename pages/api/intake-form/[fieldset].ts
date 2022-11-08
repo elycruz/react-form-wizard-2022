@@ -1,10 +1,13 @@
 import {AddressData, ContactInfoData, NameData, OtherData} from "../../../src/data/models";
 import {ADDRESS_SYMBOL, CONTACT_INFO_SYMBOL, NAME_SYMBOL, OTHER_SYMBOL} from "../../../src/data/constants";
-import {getUserSession} from '../../../middleware';
+import {sessionConfig} from '../../../middleware';
 import {fieldsetConfigsByName} from "../../../src/data/fieldsetConfigs";
 import {serverStore as storage} from '../../../server';
+import {withIronSessionApiRoute} from "iron-session/next";
 
-export default async function intakeFormHandler(req, res) {
+export default withIronSessionApiRoute(intakeFormHandler, sessionConfig);
+
+async function intakeFormHandler(req, res) {
   const {query: {fieldsetName}} = req,
     {[fieldsetName]: fieldsetConfig} = fieldsetConfigsByName;
 
@@ -14,16 +17,15 @@ export default async function intakeFormHandler(req, res) {
     });
   }
 
-  const session = await getUserSession(req, res),
-    {user} = session;
-
+  const {session, session: {user}} = req;
+console.log(req.query)
   switch (req.method) {
     case 'POST':
       // Pseudo:
       // Perform data validation
-      //   If validation success add/set entry into memory store
+      //   If validation success set entry in memory
       //   Return CREATED status with success message
-      //   If validation failed return NOT_ALLOWED response status with message
+      //   If validation failed return NOT_ALLOWED response with message
 
       // Pseudo "Create" action
       user.intakeForm = Object.assign({}, user.intakeForm || {}, Object.keys(fieldsetConfig.fields)
@@ -48,9 +50,8 @@ export default async function intakeFormHandler(req, res) {
     default:
       break;
   }
-
   res.status(200).json({message: 'hello'});
-};
+}
 
 const handleNameFieldset = (data: NameData) => {
   },
