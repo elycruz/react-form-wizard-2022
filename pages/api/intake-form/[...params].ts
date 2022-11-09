@@ -1,18 +1,15 @@
-import {AddressData, ContactInfoData, NameData, OtherData} from "../../../../src/data/models";
-import {ADDRESS_SYMBOL, CONTACT_INFO_SYMBOL, NAME_SYMBOL, OTHER_SYMBOL} from "../../../../src/data/constants";
-import {sessionConfig} from '../../../../middleware';
-import {fieldsetConfigsByName} from "../../../../src/data/fieldsetConfigs";
-import {serverStore as storage} from '../../../../server';
+import {AddressData, ContactInfoData, NameData, OtherData} from "../../../src/data/models";
+import {ADDRESS_SYMBOL, CONTACT_INFO_SYMBOL, NAME_SYMBOL, OTHER_SYMBOL} from "../../../src/data/constants";
+import {sessionConfig} from '../../../middleware';
+import {fieldsetConfigsByName} from "../../../src/data/fieldsetConfigs";
+import {serverStore as storage} from '../../../server';
 import {withIronSessionApiRoute} from "iron-session/next";
 import {NextApiRequest, NextApiResponse} from "next";
 
 export default withIronSessionApiRoute(intakeFormHandler, sessionConfig);
 
 async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
-
-  console.log('[fieldset] handler');
-
-  const {query: {fieldset: fieldsetName, redirectUri = req.url}} = req,
+  const {query: {params: [fieldsetName], redirectUri = req.url}} = req,
     {[fieldsetName as string]: fieldsetConfig} = fieldsetConfigsByName;
 
   if (!fieldsetName || !fieldsetConfig) {
@@ -47,8 +44,7 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
       storage.set(user.id, user);
 
       await session.save();
-      console.log('User data:', user);
-      return res.redirect(307, redirectUri as string);
+      return res.redirect(307, (redirectUri as string));
     case 'PUT':
     case'GET':
     case 'DELETE':

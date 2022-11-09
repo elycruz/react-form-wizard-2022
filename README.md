@@ -2,6 +2,13 @@
 
 A form wizard (survey form, intake form, etc.) application, showcasing the use of nextjs v13+ and react v18+.
 
+
+## Running the app
+
+### Prerequisites
+
+NodeJs >= v19. 
+
 ## Features
 
 - [x] Standalone Name, Contact, Address, and Other fieldset fields.

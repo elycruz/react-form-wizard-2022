@@ -8,7 +8,7 @@ const csrf_token = Math.random() + ''
 
 export const serverStore = new Map(),
 
-  getFormPageLayout = (fieldsetConfig: Fieldset, FieldsComponent: () => JSX.Element) => {
+  getFormPageLayout = (fieldsetConfig: Fieldset, FieldsComponent) => {
     const {name, prev, next, legend} = fieldsetConfig;
 
     return (

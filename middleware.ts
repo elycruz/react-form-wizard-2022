@@ -14,10 +14,15 @@ export const sessionConfig = {
 
 export const middleware = async (req: NextRequest) => {
   const res = NextResponse.next(),
-    session = await getIronSession(req, res, sessionConfig);
+    session = await getIronSession(req, res, sessionConfig),
+    newNextUrl = req.nextUrl.clone();
+  newNextUrl.pathname = '/';
+
+  const {protocol, host, port} = newNextUrl;
+
   let {user} = session;
 
-  if (req.url !== '/' && !user) return NextResponse.redirect('/', 200);
+  if (req.url !== '/' && !user) return NextResponse.redirect(`${protocol}//${host}/`, 307);
   else if (!user) {
     session.user =
       user = {
