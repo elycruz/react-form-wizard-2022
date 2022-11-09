@@ -1,7 +1,12 @@
 import React from "react";
 
-export function NotFound() {
+export default function NotFound() {
   return (<React.Fragment>
-    <h1>Not Found</h1>
+    <div>
+      <h1>404</h1>
+      <h2>
+        Not Found
+      </h2>
+    </div>
   </React.Fragment>)
 }

@@ -29,7 +29,7 @@ code {
   margin: auto;
 }
 
-:is(#root, #__next) > main > div {
+:is(#root, #__next) > main > div:has(> :nth-child(2)) {
   display: grid;
   gap: 1rem;
   grid-template-columns: auto  75%;

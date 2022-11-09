@@ -8,12 +8,18 @@ let _uuid = 0;
 export default withIronSessionApiRoute(handleIntakeFormStart, sessionConfig);
 
 async function handleIntakeFormStart(req, res: NextApiResponse) {
-  const {session, session: {user}} = req;
+  const {session, session: {user}, query} = req;
 
-  if (!isset(user.id) || user.id < 0) {
-    user.id = _uuid++;
-    await session.save();
+  console.log(query);
+  switch (req.method) {
+    case 'GET':
+
+    case 'POST':
+      if (!isset(user.id) || user.id < 0) {
+        user.id = _uuid++;
+        await session.save();
+      }
+      return res.redirect(307, '/contact-info');
   }
 
-  return res.redirect(307, '/contact-info');
 }

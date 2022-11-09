@@ -11,6 +11,7 @@ export default withIronSessionApiRoute(intakeFormHandler, sessionConfig);
 async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
   const {query: {params: [fieldsetName], redirectUri = req.url}} = req,
     {[fieldsetName as string]: fieldsetConfig} = fieldsetConfigsByName;
+  console.log(req.query.params)
 
   if (!fieldsetName || !fieldsetConfig) {
     return res.status(404).json({
@@ -30,14 +31,17 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
 
       const {intakeForm = {}} = user;
 
-      // Pseudo "Create" action
-      intakeForm[fieldsetConfig.name] = Object.assign({}, intakeForm[fieldsetConfig.name] || {}, Object.keys(fieldsetConfig.fields)
-        .reduce((agg, k) => {
-          if (!!req.body[k]) {
-            agg[k] = req.body[k]
-          }
-          return agg;
-        }, {}));
+      if (intakeForm) {
+
+        // Pseudo "Create" action
+        intakeForm[fieldsetConfig.name] = Object.assign({}, intakeForm[fieldsetConfig.name] || {}, Object.keys(fieldsetConfig.fields)
+          .reduce((agg, k) => {
+            if (!!req.body[k]) {
+              agg[k] = req.body[k]
+            }
+            return agg;
+          }, {}));
+      }
 
       user.intakeForm = intakeForm;
 
