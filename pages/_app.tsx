@@ -4,11 +4,11 @@ import * as React from "react";
 
 export interface ServerSideAppProps {
   Component?: any,
-  intakeFormStarted?: boolean
+  pageProps: any
 }
 
-export default function ServerSideApp({Component, intakeFormStarted}: ServerSideAppProps) {
-  return (<App intakeFormStarted={intakeFormStarted}>
-    <Component/>
+export default function ServerSideApp({Component, pageProps}: ServerSideAppProps) {
+  return (<App>
+    <Component {...pageProps}/>
   </App>);
 }

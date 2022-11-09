@@ -21,32 +21,6 @@ export class IntakeFormLayout extends React.Component<IntakeFormLayoutProps> {
   state = {} as IntakeFormData;
 
   onSubmit = (e: SubmitEvent): void => {
-        // const form = e.currentTarget as HTMLFormElement;
-        // e.preventDefault();
-        // this.setState({
-        //   [form.name]:
-        //     Object.fromEntries(new FormData(form).entries()) as unknown as any
-        // });
-        // console.log(this.state);
-    /*,
-          elm = e.target as HTMLButtonElement;
-
-        // Only handle prev, next, and save buttons, here.
-        if (elm.value !== 'save' && elm.value !== 'prev' && elm.value !== 'next') {
-          return;
-        }
-
-        switch (elm.value) {
-          case 'prev':
-            break;
-          case 'next':
-            break;
-          case 'save':
-
-            break;
-          default:
-            break;
-        }*/
   };
 
   render() {
