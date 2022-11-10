@@ -8,12 +8,11 @@ let _uuid = 0;
 export default withIronSessionApiRoute(handleIntakeFormStart, sessionConfig);
 
 async function handleIntakeFormStart(req, res: NextApiResponse) {
-  const {session, session: {user}, query} = req;
+  const {session, session: {user, fieldsetName}} = req;
 
-  console.log(query);
   switch (req.method) {
     case 'GET':
-      return res.status(200).json({user});
+      return res.status(200).json({user, fieldsetName});
     case 'POST':
       if (!isset(user.id) || user.id < 0) {
         user.id = _uuid++;

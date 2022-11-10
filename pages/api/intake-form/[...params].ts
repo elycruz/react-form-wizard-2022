@@ -9,7 +9,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 export default withIronSessionApiRoute(intakeFormHandler, sessionConfig);
 
 async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
-  const {query: {params: [fieldsetName, userId], redirectUri = req.url}} = req,
+  const {query: {params: [fieldsetName, nextFieldsetName], redirectUri = req.url}} = req,
     {[fieldsetName as string]: fieldsetConfig} = fieldsetConfigsByName;
 
   if (!fieldsetName || !fieldsetConfig) {
@@ -19,6 +19,8 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const {session, session: {user}} = req;
+
+  session.fieldsetName = nextFieldsetName || fieldsetName;
 
   switch (req.method) {
     case 'POST':
@@ -43,18 +45,19 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
       }
 
       user.intakeForm = intakeForm;
-      session.fieldsetName = fieldsetName;
+      session.fieldsetName = nextFieldsetName;
 
       storage.set(user.id, user);
 
+      console.log(user);
       await session.save();
       return res.redirect(307, (redirectUri as string));
     case 'PUT':
       break;
     case'GET':
-      session.fieldsetName = fieldsetName;
+      if (!session.fieldsetName) session.fieldsetName = fieldsetName;
       await session.save();
-      return res.status(200).json(storage.get(user.id) ?? {});
+      return res.status(200).json({fieldsetName: nextFieldsetName || fieldsetName, user});
     case 'DELETE':
     default:
       break;
