@@ -51,7 +51,7 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
 
       console.log(user);
       await session.save();
-      if (fieldsetName !== OTHER_SYMBOL) {
+      if (fieldsetName !== OTHER_SYMBOL || (redirectUri && redirectUri !== req.url)) {
         return res.redirect(307, (redirectUri as string));
       }
       return res.redirect(307, `http://localhost:3000/form-completed`);

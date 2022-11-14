@@ -1,4 +1,3 @@
-import {WithRouterProps} from "next/dist/client/with-router";
 import {fieldsetConfigsByName} from '../src/data/fieldsetConfigs';
 import dynamic from "next/dynamic";
 import * as React from "react";

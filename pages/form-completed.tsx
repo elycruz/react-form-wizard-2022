@@ -9,7 +9,9 @@ export default function FormCompleted() {
         <article>
         </article>
       </section>
-      <button onClick={e => window.location.href = "/"}>Start over</button>
+      <form action="/api/intake-form" method="post">
+        <button>Start over</button>
+      </form>
     </div>
   </React.Fragment>)
 }

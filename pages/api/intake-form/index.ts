@@ -19,6 +19,7 @@ async function handleIntakeFormStart(req, res: NextApiResponse) {
       if (!isset(user.id) || user.id < 0) {
         user.id = _uuid++;
         session.fieldsetName = 'contact-info';
+        session.intakeFormStarted = true;
         await session.save();
       }
       return res.redirect(307, 'http://localhost:3000/contact-info');

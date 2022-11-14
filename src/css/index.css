@@ -39,7 +39,7 @@ code {
   margin-right: var(--x-8px);
 }
 
-.intake-form-layout:invalid :is(button:not([type]), button[type="submit"]) {
+.intake-form-layout:invalid :is(button:not([type]), button[type="submit"]):not(.prev-btn) {
   pointer-events: none;
   opacity: 0.5;
 }
