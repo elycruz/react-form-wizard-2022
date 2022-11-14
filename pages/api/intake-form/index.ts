@@ -12,6 +12,8 @@ async function handleIntakeFormStart(req, res: NextApiResponse) {
 
   switch (req.method) {
     case 'GET':
+      session.fieldsetName = fieldsetName;
+      await session.save();
       return res.status(200).json({user, fieldsetName});
     case 'POST':
       if (!isset(user.id) || user.id < 0) {
@@ -19,9 +21,8 @@ async function handleIntakeFormStart(req, res: NextApiResponse) {
         session.fieldsetName = 'contact-info';
         await session.save();
       }
-      return res.redirect(307, '/contact-info');
+      return res.redirect(307, 'http://localhost:3000/contact-info');
     default:
-      break;
+      return res;
   }
-
 }

@@ -12,29 +12,36 @@ export const sessionConfig = {
   },
 };
 
+const newUser = () => ({
+  id: -1,
+  visitCount: 0,
+  intakeForm: null
+})
+
 export const middleware = async (req: NextRequest) => {
   const res = NextResponse.next(),
     session = await getIronSession(req, res, sessionConfig),
-    newNextUrl = req.nextUrl.clone();
-  newNextUrl.pathname = '/';
-
-  const {protocol, host, port} = newNextUrl;
+    newNextUrl = req.nextUrl.clone(),
+    {protocol, host} = newNextUrl;
 
   let {user} = session;
+  const isEmptyUser = !user;
 
-  if (req.url !== '/' && !user) return NextResponse.redirect(`${protocol}//${host}/`, 307);
-  else if (!user) {
+  if (isEmptyUser) {
     session.user =
-      user = {
-        id: -1,
-        visitCount: 0,
-        intakeForm: null
-      };
+      user = newUser();
   }
 
   user.visitCount += 1;
 
   await session.save();
+
+  if (req.nextUrl.pathname !== '/' && isEmptyUser) {
+    const redirectUrl = `${protocol}//${host}/`;
+    console.log(`Redirecting to ${redirectUrl}, from middle`);
+    return NextResponse.redirect(redirectUrl, 307);
+  }
+
   return res;
 };
 

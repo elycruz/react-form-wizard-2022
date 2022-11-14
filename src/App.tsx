@@ -21,7 +21,7 @@ export class App extends React.Component<AppProps, any> {
     return (<React.Fragment>
       <header>
         <div>
-          <h1>Intake Form</h1>
+          <h1><a href="/">Intake Form</a></h1>
         </div>
       </header>
       <main>

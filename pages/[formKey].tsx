@@ -6,11 +6,11 @@ import {IntakeFormLayout} from "../src/components/intake-form-layout";
 import {Suspense} from "react";
 import {ADDRESS_SYMBOL, CONTACT_INFO_SYMBOL, NAME_SYMBOL, OTHER_SYMBOL} from "../src/data/constants";
 import {User} from "../src/data/models";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
-import {NextPageContext} from "next";
+import {GetServerSideProps, NextPageContext} from "next";
+import {sessionConfig} from "../middleware";
+import {withIronSessionSsr} from 'iron-session/next';
 
-export interface FormPageProps extends WithRouterProps {
+export interface FormPageProps {
   user?: User,
   fieldsetName?: string
 }
@@ -72,18 +72,17 @@ export function FormPage(props: FormPageProps) {
   );
 }
 
-export async function getServerSideProps(ctx: NextPageContext): Promise<{ props: FormPageProps }> {
-  return fetch('http://localhost:3000/api')
-    .then(res => res.json())
-    .then((data: FormPageProps) => {
-      return {props: {...data} as FormPageProps};
-    })
-    .catch(err => {
-      error(err);
-      debugger;
-      return {props: {fieldsetName: CONTACT_INFO_SYMBOL}} as { props: FormPageProps };
-    });
-}
+export const getServerSideProps: GetServerSideProps<FormPageProps> = withIronSessionSsr(
+// @ts-ignore
+  async ({req: {session}}: NextPageContext): Promise<{ props: FormPageProps }> => {
+    const {fieldsetName, user} = session;
+
+    return {
+      props: {
+        fieldsetName: fieldsetName ?? CONTACT_INFO_SYMBOL,
+        user
+      }
+    }
+  }, sessionConfig);
 
 export default FormPage;
-
