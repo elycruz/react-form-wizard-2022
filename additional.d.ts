@@ -1,4 +1,4 @@
-import {User} from './src/data/models';
+import {User} from './src/types';
 
 declare module "iron-session" {
   interface IronSessionData {

@@ -1,7 +1,7 @@
 import {InputConstraintOptions, InputConstraints, MessageGetter, ValidationResult, Validator} from "./types";
 import {isset} from "../utils";
 
-export const patternMismatchMsg = (inputConstraints: TextInput, value: any) => `Value doesn't match pattern`,
+export const patternMismatchMsg = (constraints: TextInput, value: any) => `Value doesn't match pattern`,
   tooLongMsg = (constraints: TextInput, xs: any) => `Value is too long`,
   tooShortMsg = (constraints: TextInput, xs: any) => `Value is too short`,
   valueMissingMsg = (constraints: TextInput, xs: any) => `Value is missing`,

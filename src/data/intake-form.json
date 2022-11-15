@@ -5,9 +5,18 @@
       "legend": "Contact Info",
       "fields": {
         "email": {
-          "required": true
+          "label": "Email",
+          "attributes": {
+            "required": true,
+            "type": "email"
+          }
         },
-        "phone": null
+        "phone": {
+          "label": "Phone",
+          "attributes": {
+            "type": "tel"
+          }
+        }
       }
     },
     {
@@ -15,11 +24,19 @@
       "legend": "Name",
       "fields": {
         "first": {
-          "required": true
+          "label": "First",
+          "attributes": {
+            "required": true
+          }
         },
-        "middle": null,
+        "middle": {
+          "label": "Middle, or initial"
+        },
         "last": {
-          "required": true
+          "label": "Last",
+          "attributes": {
+            "required": true
+          }
         }
       }
     },
@@ -28,10 +45,18 @@
       "legend": "Address",
       "required": true,
       "fields": {
-        "address": null,
-        "city": null,
-        "state": null,
-        "zip": null
+        "address": {
+          "label": "Address"
+        },
+        "city": {
+          "label": "City"
+        },
+        "state": {
+          "label": "State"
+        },
+        "zip": {
+          "label": "Zip"
+        }
       }
     },
     {

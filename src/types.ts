@@ -32,7 +32,9 @@ export interface IntakeFormData {
 
 export interface Field {
   name?: string;
-  required?: boolean
+  label?: string;
+  attributes?: {[index: string]: any},
+  value?: any;
 }
 
 export interface Fieldset extends Field {

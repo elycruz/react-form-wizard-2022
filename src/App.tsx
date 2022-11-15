@@ -3,7 +3,7 @@ import {PropsWithChildren, ReactNode} from "react";
 import Link from 'next/link'
 
 import {fieldsetsList} from "./data/fieldsetConfigs";
-import {IntakeFormData} from "./data/models";
+import {IntakeFormData} from "./types";
 
 interface AppProps extends PropsWithChildren {
   intakeFormStarted?: boolean

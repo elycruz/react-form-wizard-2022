@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Suspense} from "react";
 import {IntakeFormLayout} from "../src/components/intake-form-layout";
-import {Fieldset} from "../src/data/models";
+import {Fieldset} from "../src/types";
 
 // Token with placeholder value
 const csrf_token = Math.random() + ''

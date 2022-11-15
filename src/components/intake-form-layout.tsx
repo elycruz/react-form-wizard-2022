@@ -1,7 +1,7 @@
 import * as React from "react";
 import {NextPrevAndSaveButtons} from "./next-prev-and-save-buttons";
 import {FormEventHandler, MouseEventHandler} from "react";
-import {IntakeFormData} from "../data/models";
+import {IntakeFormData} from "../types";
 
 export interface IntakeFormLayoutProps extends React.PropsWithChildren {
   name?: string,

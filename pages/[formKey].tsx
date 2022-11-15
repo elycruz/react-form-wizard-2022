@@ -4,7 +4,7 @@ import * as React from "react";
 import {IntakeFormLayout} from "../src/components/intake-form-layout";
 import {Suspense} from "react";
 import {ADDRESS_SYMBOL, CONTACT_INFO_SYMBOL, NAME_SYMBOL, OTHER_SYMBOL} from "../src/data/constants";
-import {User} from "../src/data/models";
+import {User} from "../src/types";
 import {GetServerSideProps, NextPageContext} from "next";
 import {sessionConfig} from "../middleware";
 import {withIronSessionSsr} from 'iron-session/next';

@@ -1,5 +1,5 @@
 import intakeFormConfig from './intake-form.json';
-import {Fieldset} from "./models";
+import {Fieldset} from "../types";
 
 export const fieldsetsList = intakeFormConfig.fieldsets as Fieldset[],
 
