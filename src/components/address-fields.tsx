@@ -1,6 +1,15 @@
 import * as React from 'react';
+import {AddressData} from "../types";
+import {FieldCollectionProps} from "./types";
 
-export function AddressFields() {
+export interface AddressFieldsProps extends FieldCollectionProps<AddressData> {
+}
+
+export function AddressFields(props: AddressFieldsProps) {
+  const {
+    data: {address, city, state, zipcode} = {},
+    messages: {address: addressMessages, city: cityMessages, state: stateMessages, zip: zipMessages} = {}
+  } = props;
   return (<React.Fragment>
     <label htmlFor="address">Address</label>
     <div><input type="text" id="address" name="address"/></div>

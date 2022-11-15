@@ -34,6 +34,7 @@ export interface Field {
   name?: string;
   label?: string;
   attributes?: { [index: string]: any };
+  messages?: string[];
   options?: Field[];
   value?: any;
 }
@@ -44,6 +45,7 @@ export interface Fieldset extends Field {
   action?: string,
   next?: string, // Next fieldset name
   prev?: string // Prev. ""
+  fieldMessages?: {[index: string]: string[]}
 }
 
 export interface FieldsetsByName {
