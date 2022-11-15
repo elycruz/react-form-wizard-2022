@@ -33,16 +33,21 @@ export interface IntakeFormData {
 export interface Field {
   name?: string;
   label?: string;
-  attributes?: {[index: string]: any},
+  attributes?: { [index: string]: any };
+  options?: Field[];
   value?: any;
 }
 
 export interface Fieldset extends Field {
   legend?: string;
-  fields?: { [index: string]: Field },
+  fields?: Field[],
   action?: string,
   next?: string, // Next fieldset name
   prev?: string // Prev. ""
+}
+
+export interface FieldsetsByName {
+  [index: string]: Fieldset
 }
 
 export interface User {

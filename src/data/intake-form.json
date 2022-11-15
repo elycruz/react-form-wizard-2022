@@ -3,68 +3,93 @@
     {
       "name": "contact-info",
       "legend": "Contact Info",
-      "fields": {
-        "email": {
+      "fields": [
+        {
+          "name": "email",
           "label": "Email",
           "attributes": {
             "required": true,
             "type": "email"
           }
         },
-        "phone": {
+        {
+          "name": "phone",
           "label": "Phone",
           "attributes": {
             "type": "tel"
           }
         }
-      }
+      ]
     },
     {
       "name": "name",
       "legend": "Name",
-      "fields": {
-        "first": {
+      "fields": [
+        {
+          "name": "first",
           "label": "First",
           "attributes": {
             "required": true
           }
         },
-        "middle": {
+        {
+          "name": "middle",
           "label": "Middle, or initial"
         },
-        "last": {
+        {
+          "name": "last",
           "label": "Last",
           "attributes": {
             "required": true
           }
         }
-      }
+      ]
     },
     {
       "name": "address",
       "legend": "Address",
       "required": true,
-      "fields": {
-        "address": {
+      "fields": [
+        {
+          "name": "address",
           "label": "Address"
         },
-        "city": {
+        {
+          "name": "city",
           "label": "City"
         },
-        "state": {
+        {
+          "name": "state",
           "label": "State"
         },
-        "zip": {
+        {
+          "name": "zip",
           "label": "Zip"
         }
-      }
+      ]
     },
     {
       "name": "other",
       "legend": "Other",
-      "fields": {
-        "cookies-today": null
-      }
+      "fields": [
+        {
+          "name": "cookies-today",
+          "label": "Did you have cookies today?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Yes"
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ],
+          "attributes": {
+            "type": "radio"
+          }
+        }
+      ]
     }
   ]
 }
