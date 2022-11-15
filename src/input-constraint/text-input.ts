@@ -1,5 +1,14 @@
 import {InputConstraintOptions, InputConstraints, MessageGetter, ValidationResult, Validator} from "./types";
 
+export const patternMismatchMsg = (inputConstraints: TextInput, value: any) => `Value doesn't match pattern`,
+  tooLongMsg = (constraints: TextInput, xs: any) => `Value is too long`,
+  tooShortMsg = (constraints: TextInput, xs: any) => `Value is too short`,
+  valueMissingMsg = (constraints: TextInput, xs: any) => `Value is missing`,
+  customErrorMsg = (constraints: TextInput, xs: any) => `Custom error message`,
+  badInputMsg = (constraints: TextInput, xs: any) => `Bad input`,
+  typeMismatchMsg = (constraints: TextInput, xs: any) => `Type mismatch`
+;
+
 export interface TextInputOptions extends InputConstraintOptions<string> {
   minLength?: number;
   maxLength?: number;
@@ -7,7 +16,7 @@ export interface TextInputOptions extends InputConstraintOptions<string> {
   required?: boolean;
   custom?: Validator;
 
-  patternMisMatch?: MessageGetter;
+  patternMismatch?: MessageGetter;
   tooLong?: MessageGetter;
   tooShort?: MessageGetter;
   valueMissing?: MessageGetter;
@@ -25,7 +34,7 @@ export class TextInput implements Required<TextInputOptions>, InputConstraints {
   required: boolean;
   custom: Validator;
 
-  patternMisMatch: MessageGetter;
+  patternMismatch: MessageGetter;
   tooLong: MessageGetter;
   tooShort: MessageGetter;
   valueMissing: MessageGetter;
@@ -52,7 +61,7 @@ export class TextInput implements Required<TextInputOptions>, InputConstraints {
   validate(x?: string): ValidationResult {
     let result = false;
 
-
+    // if (isset(minLength))
     return {
       result
     };
