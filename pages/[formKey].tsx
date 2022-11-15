@@ -11,7 +11,8 @@ import {withIronSessionSsr} from 'iron-session/next';
 
 export interface FormPageProps {
   user?: User,
-  fieldsetName?: string
+  fieldsetName?: string,
+  messages?: { [index: string]: string[] }
 }
 
 const NameFields = dynamic(() => import('../src/components/name-fields')
@@ -28,8 +29,9 @@ const NameFields = dynamic(() => import('../src/components/name-fields')
 ;
 
 export function FormPage(props: FormPageProps) {
-  const {fieldsetName} = props;
-  const fieldsetConfig = fieldsetConfigsByName[fieldsetName as string];
+  const {fieldsetName, user: {intakeForm} = {}, messages} = props;
+  const fieldsetConfig = fieldsetConfigsByName[fieldsetName as string],
+    formData = intakeForm[fieldsetName] ?? {};
 
   // Enable "lazy load" for target "Fields" component
   let FieldsComponent;
@@ -63,7 +65,7 @@ export function FormPage(props: FormPageProps) {
         <fieldset className="x-fieldset--grid-2 x-grid">
           <legend>{legend}</legend>
           <Suspense>
-            <FieldsComponent/>
+            <FieldsComponent {...formData} messages={messages} />
           </Suspense>
         </fieldset>
       </IntakeFormLayout>
