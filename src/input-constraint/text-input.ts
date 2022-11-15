@@ -1,4 +1,5 @@
 import {InputConstraintOptions, InputConstraints, MessageGetter, ValidationResult, Validator} from "./types";
+import {isset} from "../utils";
 
 export const patternMismatchMsg = (inputConstraints: TextInput, value: any) => `Value doesn't match pattern`,
   tooLongMsg = (constraints: TextInput, xs: any) => `Value is too long`,
@@ -34,15 +35,15 @@ export class TextInput implements Required<TextInputOptions>, InputConstraints {
   required: boolean;
   custom: Validator;
 
-  patternMismatch: MessageGetter;
-  tooLong: MessageGetter;
-  tooShort: MessageGetter;
-  valueMissing: MessageGetter;
-  customError: MessageGetter;
+  patternMismatch = patternMismatchMsg;
+  tooLong = tooLongMsg;
+  tooShort = tooShortMsg;
+  valueMissing = valueMissingMsg;
+  customError = customErrorMsg;
+  typeMismatch = typeMismatchMsg;
 
-  // These shouldn't have to be implemented
-  badInput: MessageGetter;
-  typeMismatch: MessageGetter;
+  // This one shouldn't have to be implemented
+  badInput = badInputMsg;
 
   /**
    * Whether validation should run asynchronously or not
@@ -59,11 +60,31 @@ export class TextInput implements Required<TextInputOptions>, InputConstraints {
   }
 
   validate(x?: string): ValidationResult {
-    let result = false;
+    const msgs = [],
+      issetX = isset(x);
 
-    // if (isset(minLength))
+    if (issetX && typeof x !== 'string') {
+      msgs.push(this.typeMismatch(this, x));
+    } else if (this.required && (!issetX || !x)) {
+      msgs.push(this.valueMissing(this, x));
+    } else {
+      if (isset(this.minLength) && x.length < this.minLength) {
+        msgs.push(this.tooShort(this, x));
+      }
+      if (isset(this.maxLength) && x.length > this.maxLength) {
+        msgs.push(this.tooLong(this, x));
+      }
+      if (isset(this.pattern) && !this.pattern.test(x)) {
+        msgs.push(this.patternMismatch(this, x));
+      }
+      if (isset(this.custom) && !this.custom(x)) {
+        msgs.push(this.customError(this, x));
+      }
+    }
+
     return {
-      result
+      result: !msgs.length,
+      messages: msgs
     };
   }
 }

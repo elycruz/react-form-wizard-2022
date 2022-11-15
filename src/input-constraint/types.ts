@@ -6,7 +6,7 @@ export interface ValidationResult<T = any> {
 
 export type Validator<T = any> = (x?: T) => ValidationResult<T>;
 
-export type MessageGetter<T = any> = (x?: T, constraints?: InputConstraints<T>) => string;
+export type MessageGetter<T = any> = (constraints?: InputConstraints<T>, x?: T) => string;
 
 export interface InputConstraintOptions<T = any> {
   async?: boolean;
