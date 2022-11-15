@@ -46,11 +46,6 @@ export class TextInput implements Required<TextInputOptions>, InputConstraints {
   badInput = badInputMsg;
 
   /**
-   * Whether validation should run asynchronously or not
-   */
-  async = false;
-
-  /**
    * Function used to obscure validation `value`, in validation result.  Optional.
    */
   valueObscurer: (x?: string) => string;
