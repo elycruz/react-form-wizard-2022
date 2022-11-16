@@ -77,11 +77,11 @@
           "label": "Did you have cookies today?",
           "options": [
             {
-              "value": "yes",
+              "defaultValue": "yes",
               "label": "Yes"
             },
             {
-              "value": "no",
+              "defaultValue": "no",
               "label": "No"
             }
           ],

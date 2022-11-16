@@ -1,8 +1,8 @@
-import {User} from './src/types';
+import {UserData} from './src/types';
 
 declare module "iron-session" {
   interface IronSessionData {
-    user?: User
+    user?: UserData
     fieldsetName?: string,
     intakeFormStarted?: boolean
   }

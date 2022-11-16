@@ -1,7 +1,7 @@
 import intakeFormConfig from './intake-form.json';
-import {Fieldset} from "../types";
+import {FieldsetConfig} from "../types";
 
-export const fieldsetsList = intakeFormConfig.fieldsets as Fieldset[],
+export const fieldsetsList = intakeFormConfig.fieldsets as FieldsetConfig[],
 
   fieldsetConfigsByName = (() => {
     const lastIndex = fieldsetsList.length - 1;
@@ -14,6 +14,6 @@ export const fieldsetsList = intakeFormConfig.fieldsets as Fieldset[],
           next: next !== fieldset ? next.name : null
         };
         return agg;
-      }, {} as { [index: string]: Fieldset }
-    ) as { [index: string]: Fieldset };
+      }, {} as { [index: string]: FieldsetConfig }
+    ) as { [index: string]: FieldsetConfig };
   })();

@@ -30,29 +30,30 @@ export interface IntakeFormData {
   other?: OtherData
 }
 
-export interface Field {
+export interface FieldConfig {
   name?: string;
   label?: string;
   attributes?: { [index: string]: any };
   messages?: string[];
-  options?: Field[];
+  options?: FieldConfig[];
+  defaultValue?: any;
   value?: any;
 }
 
-export interface Fieldset extends Field {
+export interface FieldsetConfig extends FieldConfig {
   legend?: string;
-  fields?: Field[],
+  fields?: FieldConfig[],
   action?: string,
   next?: string, // Next fieldset name
   prev?: string // Prev. ""
   fieldMessages?: {[index: string]: string[]}
 }
 
-export interface FieldsetsByName {
-  [index: string]: Fieldset
+export interface FieldsetConfigsByName {
+  [index: string]: FieldsetConfig
 }
 
-export interface User {
+export interface UserData {
   id: number,
   visitCount?: number,
   intakeForm?: IntakeFormData

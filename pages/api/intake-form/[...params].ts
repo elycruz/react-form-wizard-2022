@@ -1,4 +1,4 @@
-import {AddressData, ContactInfoData, FieldsetsByName, IntakeFormData, NameData, OtherData} from "../../../src/types";
+import {AddressData, ContactInfoData, IntakeFormData, NameData, OtherData} from "../../../src/types";
 import {ADDRESS_SYMBOL, CONTACT_INFO_SYMBOL, NAME_SYMBOL, OTHER_SYMBOL} from "../../../src/data/constants";
 import {sessionConfig} from '../../../middleware';
 import {fieldsetConfigsByName} from "../../../src/data/fieldsetConfigs";
