@@ -49,10 +49,6 @@ export interface FieldsetConfig extends FieldConfig {
   fieldMessages?: {[index: string]: string[]}
 }
 
-export interface FieldsetConfigsByName {
-  [index: string]: FieldsetConfig
-}
-
 export interface UserData {
   id: number,
   visitCount?: number,

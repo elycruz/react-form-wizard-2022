@@ -36,7 +36,7 @@ export function Field(props?: FieldProps) {
           <Input id={subId}
                  name={name}
                  type="radio"
-                 checked={value !== o.defaultValue ? null : true}
+                 defaultChecked={value !== o.defaultValue ? null : true}
                  defaultValue={o.defaultValue}
                  {...o.attributes}
           />
@@ -48,7 +48,7 @@ export function Field(props?: FieldProps) {
       if (attributes.id) delete attributes.id;
       controls = <Input id={id}
                         name={name} {...attributes}
-                        defaultValue={defaultValue} checked={value !== defaultValue ? null : true}/>
+                        defaultValue={defaultValue} defaultChecked={value !== defaultValue ? null : true}/>
       break;
     case undefined:
     case null:
