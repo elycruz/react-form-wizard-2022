@@ -15,7 +15,7 @@ export const sessionConfig = {
 const newUser = () => ({
   id: -1,
   visitCount: 0,
-  intakeForm: null
+  intakeForm: {}
 })
 
 export const middleware = async (req: NextRequest) => {
@@ -33,7 +33,6 @@ export const middleware = async (req: NextRequest) => {
   }
 
   user.visitCount += 1;
-
   await session.save();
 
   if (req.nextUrl.pathname !== '/' && isEmptyUser) {

@@ -28,10 +28,14 @@ async function handleIntakeFormStart(req: NextApiRequest, res: NextApiResponse) 
     case 'POST':
       if (!isset(user.id) || user.id < 0) {
         user.id = _uuid++;
-        session.fieldsetName = 'contact-info';
-        session.intakeFormStarted = true;
-        await session.save();
       }
+
+      // Reset user Application State
+      session.fieldsetName = 'contact-info';
+      session.intakeFormStarted = true;
+      user.intakeForm = {};
+
+      await session.save();
       return res.redirect(307, 'http://localhost:3000/contact-info');
 
     // Return response "as is" otherwise

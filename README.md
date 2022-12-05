@@ -1,24 +1,33 @@
 # react-form-wizard-2022 (work-in-progress)
 
-A form wizard (survey form, intake form, etc.) application, showcasing the use of nextjs v13+ and react v18+.
-
+A form wizard (survey form, intake form, etc.) application showcasing the use of nextjs v13+ and react v18+.
 
 ## Running the app
 
-### Prerequisites
+### Pre-requisites
 
 NodeJs >= v19. 
 
-## Features
+## Application
 
-- [x] Standalone Name, Contact, Address, and Other fieldset fields.
-- [ ] Login form.
-- [ ] CSRF protection - (placeholders added)
-- [ ] "No JS" version of app (using Next.js SSR, and business logic).
-- [ ] Faux data storage (storing things in memory (currently) though requires unique keys per session + email combination).
+- [x] Standalone Name, Contact, Address, and Other fieldset field collections.
+- [x] ~~Login~~ "Start form" page.
+- [x] "Contact Info" page.
+- [x] "Name" page.
+- [x] "Address" page.
+- [x] "Other" page.
+- [ ] "Submissions" page - Will contain submitted forms. 
+  - [ ] Add trivial pagination component.
+- [ ] Application "storybook".  
+- [x] "Prev" and "Next" form-submit buttons.
+- [x] "Save" form-submit button.
+- [x] Forms showing "required", and "not required" form fields.
+- [x] "No JS" (MVP) version of app (using Next.js SSR, and business logic).
+- [ ] "In Memory" data storage (requires unique keys per session + email combination, etc.).
+- [ ] CSRF protection - (placeholders added).
 - [ ] @todo et al.
 
-*create-react-app* README output follows. 
+*create-react-app* "README" follows. 
 
 # Getting Started with Create React App
 
