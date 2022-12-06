@@ -3,7 +3,7 @@ import {Provider} from 'react-redux'
 
 import '../src/css/index.css';
 import App from '../src/App';
-import store from '../src/store';
+import store from '../src/store/store';
 
 export interface ServerSideAppProps {
   Component?: any,

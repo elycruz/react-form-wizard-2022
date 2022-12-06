@@ -1,7 +1,7 @@
 import {fieldsetConfigsByName} from '../src/data/fieldsetConfigs';
 import * as React from "react";
 import {IntakeFormLayout} from "../src/components/intake-form-layout";
-import {CONTACT_INFO_SYMBOL} from "../src/data/constants";
+import {CONTACT_INFO_SYMBOL} from "../src/constants";
 import {UserData} from "../src/types";
 import {GetServerSideProps, NextPageContext} from "next";
 import {sessionConfig} from "../middleware";

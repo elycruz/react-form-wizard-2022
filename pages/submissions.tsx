@@ -5,7 +5,7 @@ import {GetServerSideProps, NextPageContext} from "next";
 import {AppContext} from '../server/index';
 import {withIronSessionSsr} from "iron-session/next";
 import {sessionConfig} from "../middleware";
-import {CONTACT_INFO_SYMBOL, EMAIL_SYMBOL, PHONE_SYMBOL} from "../src/data/constants";
+import {CONTACT_INFO_SYMBOL, EMAIL_SYMBOL, PHONE_SYMBOL} from "../src/constants";
 
 export interface SubmissionsPageProps {
   data?: IntakeFormData[]

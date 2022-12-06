@@ -1,5 +1,5 @@
 import {AddressData, ContactInfoData, IntakeFormData, NameData, OtherData} from "../../../src/types";
-import {ADDRESS_SYMBOL, CONTACT_INFO_SYMBOL, NAME_SYMBOL, OTHER_SYMBOL} from "../../../src/data/constants";
+import {ADDRESS_SYMBOL, CONTACT_INFO_SYMBOL, NAME_SYMBOL, OTHER_SYMBOL} from "../../../src/constants";
 import {sessionConfig} from '../../../middleware';
 import {fieldsetConfigsByName} from "../../../src/data/fieldsetConfigs";
 import {serverStore as storage} from '../../../server';
