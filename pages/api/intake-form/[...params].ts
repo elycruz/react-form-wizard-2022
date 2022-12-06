@@ -38,7 +38,7 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
       //   Return CREATED status with success message
       //   If validation failed return NOT_ALLOWED response with message
 
-      // Collect data from request body (Pseudo "Create" action)
+      // Collect data from request body
       intakeForm[fieldsetConfig.name] = Object.assign({}, intakeForm[fieldsetConfig.name] || {},
         fieldsetConfig.fields
           .reduce((agg, field) => {
@@ -53,7 +53,9 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
 
       console.log(user);
 
-      storage.set(user.id, user);
+      // @todo Write data to file
+      storage.set(user.id, structuredClone(user));
+      session.intakeEntries = Array.from(storage.values());
 
       await session.save();
 
@@ -73,9 +75,9 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
     case 'PUT':
     case 'DELETE':
     default:
+      throw new Error('Only "POST", and "PUT", request methods are supported');
       break;
   }
-  // res.status(200).json({message: 'hello'});
 }
 
 const handleNameFieldset = (data: NameData) => {

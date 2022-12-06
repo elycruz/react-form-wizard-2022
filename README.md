@@ -17,6 +17,7 @@ NodeJs >= v19.
 - [x] "Address" page.
 - [x] "Other" page.
 - [ ] "Submissions" page - Will contain submitted forms. 
+  - [ ] Change 'server store' to redux. 
   - [ ] Add trivial pagination component.
 - [ ] Application "storybook".  
 - [x] "Prev" and "Next" form-submit buttons.

@@ -1,12 +1,18 @@
 import * as React from "react";
 import {Suspense} from "react";
 import {IntakeFormLayout} from "../src/components/intake-form-layout";
-import {FieldsetConfig} from "../src/types";
+import {FieldsetConfig, UserData} from "../src/types";
 
 // Token with placeholder value
 const csrf_token = Math.random() + ''
 
+export interface AppContextStruct {
+  users?: UserData[]
+}
+
 export const serverStore = new Map(),
+
+  AppContext = React.createContext({users: null}),
 
   getFormPageLayout = (fieldsetConfig: FieldsetConfig, FieldsComponent) => {
     const {name, prev, next, legend} = fieldsetConfig;
