@@ -1,6 +1,7 @@
 import {sessionConfig} from "../../../middleware";
 import {NextApiRequest, NextApiResponse} from "next";
 import {withIronSessionApiRoute} from "iron-session/next";
+import {isset} from "../../../src/utils";
 
 // Pseudo uuid value (used to designate user IDs).
 let _uuid = 0;
@@ -25,8 +26,10 @@ async function handleIntakeFormStart(req: NextApiRequest, res: NextApiResponse) 
 
     // Perform "pseudo" session initialization and set our first fieldset to show and redirect to it
     case 'POST':
-      user.id = _uuid++;
-      console.log('uuid: ', _uuid);
+      if (!isset(user.id) || !user.id) {
+        user.id = _uuid++;
+        console.log('uuid: ', _uuid);
+      }
       // Reset user Application State
       session.fieldsetName = 'contact-info';
       session.intakeFormStarted = true;

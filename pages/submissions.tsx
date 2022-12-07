@@ -1,11 +1,11 @@
-import React, {useContext} from "react";
+import React from "react";
 import {FwTable, FwTableColumn} from "../src/components/fw-table";
 import {IntakeFormData} from "../src/types";
 import {GetServerSideProps, NextPageContext} from "next";
-import {AppContext} from '../server/index';
 import {withIronSessionSsr} from "iron-session/next";
 import {sessionConfig} from "../middleware";
-import {CONTACT_INFO_SYMBOL, EMAIL_SYMBOL, PHONE_SYMBOL} from "../src/constants";
+import {CONTACT_INFO_SYMBOL, EMAIL_SYMBOL, PHONE_SYMBOL, USERS_SYMBOL} from "../src/constants";
+import {useAppSelector} from "../src/hooks";
 
 export interface SubmissionsPageProps {
   data?: IntakeFormData[]
@@ -29,9 +29,11 @@ const columns: FwTableColumn<IntakeFormData>[] = [
   }
 ];
 
-export default function Submissions({data}) {
-  const ctx = useContext(AppContext);
-  console.log('appcontext', ctx);
+export default function Submissions() {
+  const data = useAppSelector(state => state[USERS_SYMBOL].value)
+
+  console.log('appcontext', data);
+
   return (<React.Fragment>
     <section>
       <header><h2>Submissions</h2></header>

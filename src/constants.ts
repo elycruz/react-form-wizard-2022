@@ -13,4 +13,7 @@ export const
   // Page ID symbols
   NAME_SYMBOL = 'name',
   OTHER_SYMBOL = 'other',
-  CONTACT_INFO_SYMBOL = 'contact-info';
+  CONTACT_INFO_SYMBOL = 'contact-info',
+
+  // Redux symbols
+  USERS_SYMBOL = 'users';

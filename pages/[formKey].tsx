@@ -15,7 +15,7 @@ export interface FormPageProps {
 }
 
 export function FormPage(props: FormPageProps) {
-  const {fieldsetName, user: {intakeForm} = {}, messages} = props;
+  const {fieldsetName, user: {intakeForm} = {intakeForm: {}}, messages} = props;
   const fieldsetConfig = {fieldMessages: messages, ...fieldsetConfigsByName[fieldsetName as string]},
     formData = intakeForm[fieldsetName] ?? {};
 
@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps<FormPageProps> = withIronSes
     return {
       props: {
         fieldsetName: fieldsetName ?? CONTACT_INFO_SYMBOL,
-        user
+        user: user ?? null
       }
     }
   }, sessionConfig);

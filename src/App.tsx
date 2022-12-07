@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {PropsWithChildren, ReactNode} from "react";
+import {PropsWithChildren} from "react";
 import Link from 'next/link'
 
 import {fieldsetsList} from "./data/fieldsetConfigs";
@@ -14,8 +14,6 @@ export interface ClientAppContext {
 }
 
 export class App extends React.Component<AppProps, any> {
-  context = React.createContext({}) as React.Context<ClientAppContext>;
-
   render() {
     const {props: {children, intakeFormStarted}} = this;
     return (<React.Fragment>
