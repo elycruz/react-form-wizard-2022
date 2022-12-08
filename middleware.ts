@@ -1,7 +1,12 @@
-// /middleware.ts
+/**
+ * middleware.ts
+ *
+ * Ensures we have valid user sessions for our application routes, additionally creates initial 'user'/'UserData' struct.
+ */
 import {NextResponse} from "next/server";
 import type {NextRequest} from "next/server";
 import {getIronSession} from "iron-session/edge";
+import {fieldsetsList} from "./src/data/fieldsetConfigs";
 
 export const sessionConfig = {
   cookieName: "myapp_cookiename",
@@ -12,11 +17,16 @@ export const sessionConfig = {
   },
 };
 
-const newUser = () => ({
-  id: -1,
-  visitCount: 0,
-  intakeForm: {}
-})
+const newSessionData = () => ({
+  user: {
+    id: -1,
+    visitCount: 0,
+  },
+  currIntakeForm: {
+    completed: false,
+    lastCompletedFieldset: fieldsetsList[0].name
+  },
+});
 
 export const middleware = async (req: NextRequest) => {
   const res = NextResponse.next(),
@@ -28,8 +38,7 @@ export const middleware = async (req: NextRequest) => {
   const isEmptyUser = !user;
 
   if (isEmptyUser) {
-    session.user =
-      user = newUser();
+    user = Object.assign(session, newSessionData()).user;
   }
 
   user.visitCount += 1;
