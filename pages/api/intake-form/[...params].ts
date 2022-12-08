@@ -1,10 +1,10 @@
-import {AddressData, ContactInfoData, IntakeFormData, NameData, OtherData} from "../../../src/types";
-import {ADDRESS_SYMBOL, CONTACT_INFO_SYMBOL, NAME_SYMBOL, OTHER_SYMBOL} from "../../../src/constants";
+import {IntakeFormData} from "../../../src/types";
+import {CONTACT_INFO_SYMBOL, OTHER_SYMBOL} from "../../../src/constants";
 import {sessionConfig} from '../../../middleware';
 import {fieldsetConfigsByName} from "../../../src/data/fieldsetConfigs";
-import {serverStore as storage} from '../../../server';
 import {withIronSessionApiRoute} from "iron-session/next";
 import {NextApiRequest, NextApiResponse} from "next";
+import {storage} from '../../../server/storage';
 
 export default withIronSessionApiRoute(intakeFormHandler, sessionConfig);
 
@@ -20,7 +20,7 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   // Get session data
-  const {session, session: {user}} = req;
+  const {session, session: {user, currIntakeForm: intakeForm = {}}} = req;
 
   // Set fieldset name (used in views)
   session.fieldsetName = nextFieldsetName || fieldsetName;
@@ -29,7 +29,6 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
   // ----
   switch (req.method) {
     case 'POST':
-      const intakeForm = user?.intakeForm ?? {};
 
       // @todo
       // Pseudo:
@@ -48,15 +47,13 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
             return agg;
           }, {} as IntakeFormData)) as IntakeFormData;
 
-      user.intakeForm = intakeForm;
+      intakeForm.lastCompletedFieldset = fieldsetName;
+      session.currIntakeForm = intakeForm;
       session.fieldsetName = nextFieldsetName;
 
-      console.log(user);
+      console.log(`Saving intake form data:`, intakeForm, `\nFor user: `, user);
 
-      // @todo Write data to file
-      storage.set(user.id, structuredClone(user));
-      session.intakeEntries = Array.from(storage.values());
-
+      await storage.put(user.id, intakeForm);
       await session.save();
 
       // If not is last fieldset (in set) and a 'prev' fieldset was requested, redirect
@@ -68,7 +65,7 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
       return res.redirect(307, `http://localhost:3000/form-completed`);
 
     case'GET':
-      if (!session.fieldsetName) session.fieldsetName = fieldsetName;
+      if (!session.fieldsetName) session.fieldsetName = fieldsetName ?? CONTACT_INFO_SYMBOL;
       await session.save();
       return res.status(200).json({fieldsetName: nextFieldsetName || fieldsetName, user});
 
@@ -76,21 +73,5 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
     case 'DELETE':
     default:
       throw new Error('Only "POST", and "PUT", request methods are supported');
-      break;
   }
 }
-
-const handleNameFieldset = (data: NameData) => {
-  },
-  handleAddressFieldset = (data: AddressData) => {
-  },
-  handleContactInfoFieldset = (data: ContactInfoData) => {
-  },
-  handleOtherFieldset = (data: OtherData) => {
-  },
-  intakeFormHandlers = {
-    [NAME_SYMBOL]: handleNameFieldset,
-    [ADDRESS_SYMBOL]: handleAddressFieldset,
-    [CONTACT_INFO_SYMBOL]: handleContactInfoFieldset,
-    [OTHER_SYMBOL]: handleOtherFieldset,
-  };

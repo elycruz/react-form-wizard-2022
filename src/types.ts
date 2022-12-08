@@ -21,13 +21,16 @@ export interface OtherData {
 }
 
 /**
- * Collection of fieldset to store in server side storage.
+ * Collection of fieldset to store in server side storage (preferably (@note) as an 'NoSql' doc., for our example).
  */
 export interface IntakeFormData {
+  id?: number,
   address?: AddressData;
   name?: NameData;
   contactInfo?: ContactInfoData;
-  other?: OtherData
+  other?: OtherData,
+  completed?: boolean,
+  lastCompletedFieldset?: string
 }
 
 export interface FieldConfig {
@@ -51,6 +54,5 @@ export interface FieldsetConfig extends FieldConfig {
 
 export interface UserData {
   id: number,
-  visitCount?: number,
-  intakeForm?: IntakeFormData
+  visitCount?: number
 }

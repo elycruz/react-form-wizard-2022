@@ -22,6 +22,7 @@ const newSessionData = () => ({
     id: -1,
     visitCount: 0,
   },
+  fieldsetName: fieldsetsList[0].name,
   currIntakeForm: {
     completed: false,
     lastCompletedFieldset: fieldsetsList[0].name
@@ -38,7 +39,11 @@ export const middleware = async (req: NextRequest) => {
   const isEmptyUser = !user;
 
   if (isEmptyUser) {
-    user = Object.assign(session, newSessionData()).user;
+    const newData =  newSessionData();
+    user = session.user = newData.user;
+    session.fieldsetName = newData.fieldsetName;
+    session.currIntakeForm = newData.currIntakeForm;
+    user.id += 1;
   }
 
   user.visitCount += 1;
@@ -46,7 +51,7 @@ export const middleware = async (req: NextRequest) => {
 
   if (req.nextUrl.pathname !== '/' && isEmptyUser) {
     const redirectUrl = `${protocol}//${host}/`;
-    console.log(`Redirecting to ${redirectUrl}, from middle`);
+    console.log(`Redirecting to ${redirectUrl}, from middleware`);
     return NextResponse.redirect(redirectUrl, 307);
   }
 

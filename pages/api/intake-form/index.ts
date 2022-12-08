@@ -1,7 +1,13 @@
+/**
+ * api/intake-form/index.ts
+ *
+ * Normalizes user session for 'intake-form' routes.
+ */
 import {sessionConfig} from "../../../middleware";
 import {NextApiRequest, NextApiResponse} from "next";
 import {withIronSessionApiRoute} from "iron-session/next";
-import {isset} from "../../../src/utils";
+
+import {storage} from "../../../server/storage";
 
 // Pseudo uuid value (used to designate user IDs).
 let _uuid = 0;
@@ -18,22 +24,17 @@ async function handleIntakeFormStart(req: NextApiRequest, res: NextApiResponse) 
   // Parse request by method
   switch (req.method) {
 
-    // Fetch current snapshot of user data
+    // Fetch submitted intake forms
     case 'GET':
-      session.fieldsetName = fieldsetName;
-      await session.save();
-      return res.status(200).json({user, fieldsetName});
+      const out = {data: storage.getRange({start: 0}).asArray ?? []};
+      console.log(out);
+      return  res.status(200).json(out);
 
     // Perform "pseudo" session initialization and set our first fieldset to show and redirect to it
     case 'POST':
-      if (!isset(user.id) || !user.id) {
-        user.id = _uuid++;
-        console.log('uuid: ', _uuid);
-      }
       // Reset user Application State
       session.fieldsetName = 'contact-info';
-      session.intakeFormStarted = true;
-      user.intakeForm = {};
+      session.currIntakeForm = {id: ++_uuid};
       await session.save();
       return res.redirect(307, 'http://localhost:3000/contact-info');
 
