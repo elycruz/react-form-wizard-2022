@@ -10,7 +10,7 @@ A form wizard (survey form, intake form, etc.) application showcasing the use of
 
 NodeJs >= v19. 
 
-## Application
+## Application Todos
 
 - [x] Standalone Name, Contact, Address, and Other fieldset field collections.
 - [x] ~~Login~~ "Start form" page.
@@ -18,17 +18,35 @@ NodeJs >= v19.
 - [x] "Name" page.
 - [x] "Address" page.
 - [x] "Other" page.
-- [ ] ~~"Submissions"~~ Index page - Will contain submitted forms. 
-  - [ ] Change 'server store' to redux. 
-  - [ ] Add trivial pagination component.
-- [ ] Application "storybook".  
+- [x] ~~"Submissions"~~ Index page - Will contain submitted forms. 
+  - [x] Change 'server store' to redux.
+  - [ ] Server side redux support - Requires `next-redux-wrapper` package.
+- [x] Application "storybook".  
 - [x] "Prev" and "Next" form-submit buttons.
 - [x] "Save" form-submit button.
 - [x] Forms showing "required", and "not required" form fields.
 - [x] "No JS" (MVP) version of app (using Next.js SSR, and business logic).
-- [ ] "In Memory" data storage (requires unique keys per session + email combination, etc.).
-- [ ] CSRF protection - (placeholders added).
+- [x] ~~"In Memory"~~ "Persistent" data storage - performed via 'lmdb' module.
+- [x] CSRF protection - ~~(placeholders added)~~ Basic (example) protection added, using 'uuidv4' tokens.
+- [x] MVP Table control.
+- [x] ~~MVP Pagination control.~~
+- [ ] "Submit entry" button.
+- [ ] "Percentages completed" list/menu - Nav control depicting how much of each form is completed.
+- [ ] ~~Add styling library, or add additional base styling, to the app.~~
 - [ ] @todo et al.
+
+### Form Wizard Table
+
+Basic table control.
+
+#### Spec
+
+Control should:
+
+- Optionally render an "index" column - Column showing the index number of every given row, along with users selected index column header.
+- Show an "No entries found" (can be extended to be customizable) message when no columns, and/or, data is available (in a real app there should be a message for 'no columns', and 'no data', '... found' cases).
+
+### F
 
 *create-react-app* "README" follows. 
 
