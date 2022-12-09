@@ -48,6 +48,7 @@ export const middleware = async (req: NextRequest) => {
     session.fieldsetName = newData.fieldsetName;
     session.currIntakeForm = newData.currIntakeForm;
     user.id = uuidv4();
+    session.csrfToken = uuidv4();
   }
 
   user.visitCount += 1;

@@ -31,6 +31,7 @@ export interface IntakeFormData {
   other?: OtherData,
   completed?: boolean,
   lastCompletedFieldset?: string
+  csrfToken?: string
 }
 
 export interface FieldConfig {

@@ -5,5 +5,6 @@ declare module "iron-session" {
     user?: UserData;
     fieldsetName?: string;
     currIntakeForm?: IntakeFormData;
+    csrfToken?: string;
   }
 }

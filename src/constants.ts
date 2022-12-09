@@ -9,6 +9,7 @@ export const
   ZIPCODE_SYMBOL = 'zipcode',
   EMAIL_SYMBOL = 'email',
   PHONE_SYMBOL = 'phone',
+  CSRF_TOKEN_SYMBOL = 'csrf-token',
 
   // Page ID symbols
   NAME_SYMBOL = 'name',

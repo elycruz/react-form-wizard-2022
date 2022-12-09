@@ -30,9 +30,11 @@ async function handleIntakeFormStart(req: NextApiRequest, res: NextApiResponse) 
 
     // Perform "pseudo" session initialization and set our first fieldset to show and redirect to it
     case 'POST':
+      const csrfToken = uuidv4();
       // Reset user Application State
       session.fieldsetName = 'contact-info';
       session.currIntakeForm = {id: uuidv4()};
+      session.csrfToken = csrfToken;
       await session.save();
       return res.redirect(307, 'http://localhost:3000/contact-info');
 

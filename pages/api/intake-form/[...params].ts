@@ -1,10 +1,11 @@
 import {IntakeFormData} from "../../../src/types";
-import {CONTACT_INFO_SYMBOL, OTHER_SYMBOL} from "../../../src/constants";
+import {CONTACT_INFO_SYMBOL, CSRF_TOKEN_SYMBOL, OTHER_SYMBOL} from "../../../src/constants";
 import {sessionConfig} from '../../../middleware';
 import {fieldsetConfigsByName} from "../../../src/data/fieldsetConfigs";
 import {withIronSessionApiRoute} from "iron-session/next";
 import {NextApiRequest, NextApiResponse} from "next";
 import {storage} from '../../../server/storage';
+import {v4 as uuidv4} from 'uuid';
 
 export default withIronSessionApiRoute(intakeFormHandler, sessionConfig);
 
@@ -20,7 +21,7 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   // Get session data
-  const {session, session: {user, currIntakeForm: intakeForm = {}}} = req;
+  const {session, session: {user, currIntakeForm: intakeForm = {}, csrfToken}} = req;
 
   // Set fieldset name (used in views)
   session.fieldsetName = nextFieldsetName || fieldsetName;
@@ -38,6 +39,13 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
       //   Return CREATED status with success message
       //   If validation failed return NOT_ALLOWED response with message
 
+      // If csrf token is not valid reset it and redirect to index page
+      if (csrfToken !== req.body[CSRF_TOKEN_SYMBOL]) {
+        session.csrfToken = uuidv4();
+        await session.save();
+        return res.redirect(307, `//${req.headers.host}/`);
+      }
+
       // Collect data from request body
       intakeForm[fieldsetConfig.name] = Object.assign({}, intakeForm[fieldsetConfig.name] || {},
         fieldsetConfig.fields
@@ -51,6 +59,7 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
       intakeForm.lastCompletedFieldset = fieldsetName;
       session.currIntakeForm = intakeForm;
       session.fieldsetName = nextFieldsetName;
+      session.csrfToken = uuidv4();
 
       console.log(`Saving intake form data:`, intakeForm, `\nFor user: `, user);
 
@@ -63,7 +72,7 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
       }
 
       // Else, (assumed) last fieldset was submitted with no 'redirect to fieldset' param
-      return res.redirect(307, `http://localhost:3000/form-completed`);
+      return res.redirect(307, `//${req.headers.host}/form-completed`);
 
     case'GET':
       // Return intake form matching `id` - `id` is assumed to be the first received path param, for 'GET' request (here),.
