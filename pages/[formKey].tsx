@@ -27,13 +27,17 @@ export function FormPage(props: FormPageProps) {
       <IntakeFormLayout name={name}
                         prevAction={prev && `/api/intake-form/${name}/${prev}?redirectUri=/${prev}`}
                         nextAction={next && `/api/intake-form/${name}/${next}?redirectUri=/${next}`}
-                        action={`/api/intake-form/${name}`}
+                        action={`/api/intake-form/${name}${!next ? '' : `/${name}?redirectUri=/${name}`}`}
+                        method="POST"
                         csrfTokenName={'csrf'}
                         csrfToken={'bla'}>
         <fieldset className="x-fieldset--grid-2 x-grid">
           <legend>{legend}</legend>
           {fieldsetConfig?.fields?.map((f, i) =>
-            (<Field key={`field-${fieldsetName}-${i}`} defaultValue={formData[f.name]} value={formData[f.name]} {...f} />))
+            (<Field key={`field-${fieldsetName}-${i}`}
+                    defaultValue={formData[f.name]}
+                    value={formData[f.name]}
+                    {...f} />))
           }
         </fieldset>
       </IntakeFormLayout>

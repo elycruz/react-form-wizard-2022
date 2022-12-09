@@ -1,5 +1,5 @@
 import {configureStore, ThunkAction, Action, Dispatch} from '@reduxjs/toolkit'
-import usersReducer, {updateUser} from "./store-slices/users-slice";
+import usersReducer, {updateUser} from "./store-slices/intake-form-slice";
 import {USERS_SYMBOL} from "./constants";
 import {log} from "./utils";
 // import {createWrapper} from "next-redux-wrapper";

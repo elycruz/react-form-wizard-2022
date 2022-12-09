@@ -6,11 +6,9 @@
 import {sessionConfig} from "../../../middleware";
 import {NextApiRequest, NextApiResponse} from "next";
 import {withIronSessionApiRoute} from "iron-session/next";
+import {v4 as uuidv4} from 'uuid';
 
 import {storage} from "../../../server/storage";
-
-// Pseudo uuid value (used to designate user IDs).
-let _uuid = 0;
 
 // Ensure session property is attached to api request object
 export default withIronSessionApiRoute(handleIntakeFormStart, sessionConfig);
@@ -26,15 +24,15 @@ async function handleIntakeFormStart(req: NextApiRequest, res: NextApiResponse) 
 
     // Fetch submitted intake forms
     case 'GET':
-      const out = {data: storage.getRange({start: 0}).asArray ?? []};
-      console.log(out);
-      return  res.status(200).json(out);
+      const out = {data: storage.getRange({}).asArray ?? []};
+      console.log(`${req.url} output`, out/*, Array.from(storage.getKeys())*/);
+      return res.status(200).json(out);
 
     // Perform "pseudo" session initialization and set our first fieldset to show and redirect to it
     case 'POST':
       // Reset user Application State
       session.fieldsetName = 'contact-info';
-      session.currIntakeForm = {id: ++_uuid};
+      session.currIntakeForm = {id: uuidv4()};
       await session.save();
       return res.redirect(307, 'http://localhost:3000/contact-info');
 

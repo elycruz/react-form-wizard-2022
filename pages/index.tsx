@@ -61,7 +61,7 @@ export const getServerSideProps: GetServerSideProps<IndexPageProps> = withIronSe
       props: {
         fieldsetName: fieldsetName ?? CONTACT_INFO_SYMBOL,
         user: user ?? null,
-        intakeForm
+        intakeForm: intakeForm ?? null
       }
     }
   }, sessionConfig);

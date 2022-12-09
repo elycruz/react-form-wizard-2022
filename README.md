@@ -4,6 +4,8 @@ A form wizard (survey form, intake form, etc.) application showcasing the use of
 
 ## Running the app
 
+- Run it with, or add environment variable to '.env' file, `LMDB_STORE_PATH` (path should be a directory).
+
 ### Pre-requisites
 
 NodeJs >= v19. 

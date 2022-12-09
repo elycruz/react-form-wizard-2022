@@ -6,11 +6,14 @@
 import {NextResponse} from "next/server";
 import type {NextRequest} from "next/server";
 import {getIronSession} from "iron-session/edge";
+import {v4 as uuidv4} from 'uuid';
+
 import {fieldsetsList} from "./src/data/fieldsetConfigs";
 
 export const sessionConfig = {
   cookieName: "myapp_cookiename",
   password: "complex_password_at_least_32_characters_long",
+  ttl: 3600,
   // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
   cookieOptions: {
     secure: false, //process.env.NODE_ENV === "production",
@@ -38,12 +41,13 @@ export const middleware = async (req: NextRequest) => {
   let {user} = session;
   const isEmptyUser = !user;
 
+  const newData =  newSessionData();
+
   if (isEmptyUser) {
-    const newData =  newSessionData();
     user = session.user = newData.user;
     session.fieldsetName = newData.fieldsetName;
     session.currIntakeForm = newData.currIntakeForm;
-    user.id += 1;
+    user.id = uuidv4();
   }
 
   user.visitCount += 1;

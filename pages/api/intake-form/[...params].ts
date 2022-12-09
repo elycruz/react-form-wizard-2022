@@ -13,7 +13,7 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
     {[fieldsetName as string]: fieldsetConfig} = fieldsetConfigsByName;
 
   // If no fieldset name or config bail
-  if (!fieldsetName || !fieldsetConfig) {
+  if ((!fieldsetName || !fieldsetConfig) && req.method !== 'GET') {
     return res.status(404).json({
       error: 'Endpoint not found'
     });
@@ -28,6 +28,7 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
   // Parse incoming request by method
   // ----
   switch (req.method) {
+    case 'PUT':
     case 'POST':
 
       // @todo
@@ -53,25 +54,31 @@ async function intakeFormHandler(req: NextApiRequest, res: NextApiResponse) {
 
       console.log(`Saving intake form data:`, intakeForm, `\nFor user: `, user);
 
-      await storage.put(user.id, intakeForm);
+      await storage.put(intakeForm.id, structuredClone(intakeForm));
       await session.save();
 
-      // If not is last fieldset (in set) and a 'prev' fieldset was requested, redirect
-      if (fieldsetName !== OTHER_SYMBOL || (redirectUri && redirectUri !== req.url)) {
+      // Redirect, if redirect uri was supplied
+      if (redirectUri && redirectUri !== req.url) {
         return res.redirect(307, (redirectUri as string));
       }
 
-      // Else, last fieldset was submitted with no 'redirect to fieldset' param
+      // Else, (assumed) last fieldset was submitted with no 'redirect to fieldset' param
       return res.redirect(307, `http://localhost:3000/form-completed`);
 
     case'GET':
-      if (!session.fieldsetName) session.fieldsetName = fieldsetName ?? CONTACT_INFO_SYMBOL;
-      await session.save();
-      return res.status(200).json({fieldsetName: nextFieldsetName || fieldsetName, user});
+      // Return intake form matching `id` - `id` is assumed to be the first received path param, for 'GET' request (here),.
+      const _intakeForm = storage.get(fieldsetName);
 
-    case 'PUT':
+      // Return intake form matching `id` if `id` is populated, else assume it is an 'index' request
+      return _intakeForm ?
+        res.status(200).json({
+          data: _intakeForm
+        }) : res.status(403).json({
+          error: `Intake form with received \`id\` not found`
+        });
+
     case 'DELETE':
     default:
-      throw new Error('Only "POST", and "PUT", request methods are supported');
+      throw new Error('Only "POST", "PUT", and "GET" HTTP methods supported');
   }
 }
