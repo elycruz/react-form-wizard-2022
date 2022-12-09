@@ -17,4 +17,5 @@ export const
   CONTACT_INFO_SYMBOL = 'contact-info',
 
   // Redux symbols
-  USERS_SYMBOL = 'users';
+  USERS_SYMBOL = 'users',
+  INTAKE_FORM_SYMBOL = 'intake-form';

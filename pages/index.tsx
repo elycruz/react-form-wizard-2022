@@ -2,11 +2,12 @@ import {withIronSessionSsr} from "iron-session/next";
 import {sessionConfig} from "../middleware";
 import {useAppSelector} from "../src/hooks";
 import {CONTACT_INFO_SYMBOL, EMAIL_SYMBOL, PHONE_SYMBOL, USERS_SYMBOL} from "../src/constants";
-import React from "react";
+import React, {Suspense} from "react";
 import {FwTable, FwTableColumn} from "../src/components/fw-table";
 import {IntakeFormData} from "../src/types";
 import {GetServerSideProps, NextPageContext} from "next";
 import {FormPageProps} from "./[formKey]";
+import {useIntakeIndexQuery} from '../src/store-slices/intake-form-slice';
 
 export interface IndexPageProps extends FormPageProps {
   data?: IntakeFormData[]
@@ -23,17 +24,17 @@ const columns: FwTableColumn<IntakeFormData>[] = [
     indexColumnOffset: 0
   }, {
     label: "Email",
-    name: `${CONTACT_INFO_SYMBOL}.${EMAIL_SYMBOL}`
+    name: `value.${CONTACT_INFO_SYMBOL}.${EMAIL_SYMBOL}`
   }, {
     label: "Phone",
-    name: `${CONTACT_INFO_SYMBOL}.${PHONE_SYMBOL}`
+    name: `value.${CONTACT_INFO_SYMBOL}.${PHONE_SYMBOL}`
   }
 ];
 
 export default function IndexPage() {
-  const data = useAppSelector(state => state[USERS_SYMBOL].value)
+  const {data = [], isFetching} = useIntakeIndexQuery();
 
-  console.log('users: ', data);
+  console.log('intakeEntries: ', data);
 
   return (<React.Fragment>
     <section>
@@ -46,7 +47,9 @@ export default function IndexPage() {
     <section>
       <header><h2>Submissions</h2></header>
       <article>
-        <FwTable columns={columns} data={data}/>
+        {isFetching ? (<p>Loading ...</p>) :
+          (<FwTable columns={columns} data={data}/>)
+        }
       </article>
     </section>
   </React.Fragment>);

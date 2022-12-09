@@ -1,14 +1,16 @@
 import {configureStore, ThunkAction, Action, Dispatch} from '@reduxjs/toolkit'
-import usersReducer, {updateUser} from "./store-slices/intake-form-slice";
 import {USERS_SYMBOL} from "./constants";
 import {log} from "./utils";
 // import {createWrapper} from "next-redux-wrapper";
+import {intakeFormApiSlice} from "./store-slices/intake-form-slice";
 
 export function makeStore() {
   return configureStore({
     reducer: {
-      [USERS_SYMBOL]: usersReducer
+      [intakeFormApiSlice.reducerPath]: intakeFormApiSlice.reducer
     },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(intakeFormApiSlice.middleware)
   });
 }
 

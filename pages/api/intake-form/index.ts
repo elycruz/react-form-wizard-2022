@@ -24,7 +24,7 @@ async function handleIntakeFormStart(req: NextApiRequest, res: NextApiResponse) 
 
     // Fetch submitted intake forms
     case 'GET':
-      const out = {data: storage.getRange({}).asArray ?? []};
+      const out = storage.getRange({}).asArray ?? [];
       console.log(`${req.url} output`, out/*, Array.from(storage.getKeys())*/);
       return res.status(200).json(out);
 
@@ -36,7 +36,7 @@ async function handleIntakeFormStart(req: NextApiRequest, res: NextApiResponse) 
       session.currIntakeForm = {id: uuidv4()};
       session.csrfToken = csrfToken;
       await session.save();
-      return res.redirect(307, 'http://localhost:3000/contact-info');
+      return res.redirect(307, `//${req.headers.host}/contact-info`);
 
     // Return response "as is" otherwise
     default:

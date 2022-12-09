@@ -53,6 +53,7 @@ function renderTableDataCell<T extends object = {}>(
 }
 
 export function FwTable<T extends object>({columns, data, className = "x-table", ...other}: FwTableProps<T>) {
+  console.log('fwtable', data);
   return (<table className={className} {...other}>
     <thead>
     <tr>
