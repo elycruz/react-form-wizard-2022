@@ -55,11 +55,13 @@ function renderTableDataCell<T extends object = {}>(
 export function FwTable<T extends object>({columns, data, className = "x-table", ...other}: FwTableProps<T>) {
   console.log('fwtable', data);
   return (<table className={className} {...other}>
-    <thead>
-    <tr>
-      {columns.map((c, i) => renderTableHeaderCell(c, i, columns))}
-    </tr>
-    </thead>
+    {!columns || !columns.length ? null :
+      (<thead>
+      <tr>
+        {columns.map((c, i) => renderTableHeaderCell(c, i, columns))}
+      </tr>
+      </thead>)
+    }
     <tbody>
     {!data || !data.length ?
       (<tr><td colSpan={columns.length}><div>No entries found</div></td></tr>) :
@@ -69,6 +71,5 @@ export function FwTable<T extends object>({columns, data, className = "x-table",
         }</tr>
       ))}
     </tbody>
-    <tfoot></tfoot>
   </table>);
 }

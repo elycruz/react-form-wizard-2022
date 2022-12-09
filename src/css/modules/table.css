@@ -1,0 +1,32 @@
+.x-table {
+  border: var(--x-1px) solid;
+  border-radius: var(--x-border-radius);
+}
+
+.x-table :where(th, td) {
+  padding: var(--x-8px);
+}
+
+.x-table th + th {
+  border-left: var(--x-1px) solid;
+}
+
+.x-table > thead,
+.x-table > thead > tr:first-child {
+  border-top-left-radius: var(--x-border-radius);
+  border-top-right-radius: var(--x-border-radius);
+}
+
+.x-table > tfoot,
+.x-table > tfoot > tr:last-child,
+.x-table > tbody:where(:last-child),
+.x-table > tbody:where(:last-child) > tr:last-child {
+  border-bottom-left-radius: var(--x-border-radius);
+  border-bottom-right-radius: var(--x-border-radius);
+}
+
+.x-table > thead + tbody > tr > *,
+.x-table > tbody + tfoot > tr > *,
+.x-table tr + tr > :where(td, th) {
+  border-top: var(--x-1px) solid;
+}

@@ -16,7 +16,7 @@ code {
   monospace;
 }
 
-:is(#root, #__next) > * {
+:is(#__next) > * {
   display: grid;
   width: 100%;
   /*place-content: center;*/
