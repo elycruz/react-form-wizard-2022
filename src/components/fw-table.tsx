@@ -5,7 +5,7 @@ export interface FwTableColumn<T extends object = {}> {
   title?: string,
   label?: string,
   name?: string,
-  tdRender?: (column: FwTableColumn, data: T, index?: number, dataList?: T[]) => ReactNode,
+  tdRender?: (column: FwTableColumn, data: T, rowIndex?: number, cellIndex?: number, dataList?: T[]) => ReactNode,
   thRender?: (column: FwTableColumn, index?: number, columns?: FwTableColumn[]) => ReactNode,
   indexColumn?: boolean,
   indexColumnOffset?: number
@@ -36,15 +36,16 @@ function renderTableHeaderCell<T extends object = {}>(
 function renderTableDataCell<T extends object = {}>(
   c?: FwTableColumn<T>,
   d?: T,
-  i?: number,
+  rowIndex?: number,
+  cellIndex?: number,
   data?: T[]
 ): ReactNode {
-  if (c.tdRender) return c.tdRender(c, d, i, data);
+  if (c.tdRender) return c.tdRender(c, d, rowIndex, cellIndex, data);
 
   // Get cell contents
-  const textContent = c.indexColumn ? i + 1 + (c.indexColumnOffset ?? 0) : searchObj(c.name, d);
+  const textContent = c.indexColumn ? rowIndex + 1 + (c.indexColumnOffset ?? 0) : searchObj(c.name, d);
 
-  return (<td key={`td-${i}-${_tableUuid++}`}>
+  return (<td key={`td-${rowIndex}-${cellIndex}-${_tableUuid++}`}>
       <div>
         {textContent}
       </div>
@@ -67,7 +68,7 @@ export function FwTable<T extends object>({columns, data, className = "x-table",
       (<tr><td colSpan={columns.length}><div>No entries found</div></td></tr>) :
       data.map((d, i) => (
         <tr key={`tr-${i}-${_tableUuid++}`}>{
-          columns.map((c, j) => renderTableDataCell(c, d, j, data))
+          columns.map((c, j) => renderTableDataCell(c, d, i, j, data))
         }</tr>
       ))}
     </tbody>
