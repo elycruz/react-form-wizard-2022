@@ -7,7 +7,8 @@ import {IntakeFormData} from "../src/types";
 import {GetServerSideProps, NextPageContext} from "next";
 import {FormPageProps} from "./[formKey]";
 import {getIntakeIndex, useIntakeIndexQuery} from '../src/store-slices/intake-form-slice';
-import {AppStore, storeWrapper} from "../src/storeWrapper";
+import {AppState, AppStore, storeWrapper} from "../src/storeWrapper";
+import {useAppSelector} from "../src/hooks";
 
 export interface IndexPageProps extends FormPageProps {
   data?: IntakeFormData[],
@@ -33,8 +34,10 @@ const columns: FwTableColumn<IntakeFormData>[] = [
 ];
 
 export default function IndexPage({data: inData}) {
-  const {data = [], isFetching} = useIntakeIndexQuery();
+  const data = useAppSelector((state: AppState) => state?.api?.queries['intakeIndex'] ?? []) as IntakeFormData[];
+
   console.log('inData:', inData);
+
   return (<React.Fragment>
     <section>
       <form action="/api/intake-form" method="post">
@@ -46,9 +49,7 @@ export default function IndexPage({data: inData}) {
     <section>
       <header><h2>Submissions</h2></header>
       <article>
-        {isFetching ? (<p>Loading ...</p>) :
-          (<FwTable columns={columns} data={data}/>)
-        }
+          <FwTable columns={columns} data={data}/>
       </article>
     </section>
   </React.Fragment>);
@@ -58,20 +59,22 @@ export const getServerSideProps: GetServerSideProps<IndexPageProps> =
   storeWrapper.getServerSideProps((store: AppStore) =>
     withIronSessionSsr(
       // @ts-ignore
-      async ({req: {session}}: NextPageContext): Promise<{ props: IndexPageProps }> => {
+      async ({req, req: {session}}: NextPageContext): Promise<{ props: IndexPageProps }> => {
         const {fieldsetName, user, currIntakeForm: intakeForm} = session;
 
-        await store.dispatch(getIntakeIndex());
-        const data = store.getState();
+        const data = await fetch(`http://${req.headers.host}/api/intake-form`, {})
+          .then(resp => resp.json());
 
-        console.log('store', data?.api?.queries['intakeIndex(undefined)']);
+        // const data = store.getState();
+
+        // console.log('store', data?.api?.queries['intakeIndex(undefined)']);
 
         return {
           props: {
             fieldsetName: fieldsetName ?? CONTACT_INFO_SYMBOL,
             user: user ?? null,
             intakeForm: intakeForm ?? null,
-            // data: []
+            data: data ?? []
           }
         }
       }, sessionConfig));
