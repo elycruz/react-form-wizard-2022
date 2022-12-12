@@ -3,7 +3,7 @@ import {Provider} from 'react-redux'
 
 import '../src/css/index.css';
 import App from '../src/App';
-import store from '../src/store';
+import {storeWrapper} from '../src/storeWrapper';
 
 export interface ServerSideAppProps {
   Component?: any,
@@ -11,12 +11,11 @@ export interface ServerSideAppProps {
 }
 
 export default function ServerSideApp({Component, pageProps}: ServerSideAppProps) {
+  const {store, props} = storeWrapper.useWrappedStore(pageProps);
   return (
     <Provider store={store}>
       <App>
-        <Component {...pageProps}/>
+        <Component {...props.pageProps}/>
       </App>
     </Provider>);
 }
-
-// export default storeWrapper.useWrappedStore(ServerSideApp);

@@ -1,16 +1,17 @@
 import {withIronSessionSsr} from "iron-session/next";
 import {sessionConfig} from "../middleware";
-import {useAppSelector} from "../src/hooks";
 import {CONTACT_INFO_SYMBOL, EMAIL_SYMBOL, PHONE_SYMBOL, USERS_SYMBOL} from "../src/constants";
 import React, {Suspense} from "react";
 import {FwTable, FwTableColumn} from "../src/components/fw-table";
 import {IntakeFormData} from "../src/types";
 import {GetServerSideProps, NextPageContext} from "next";
 import {FormPageProps} from "./[formKey]";
-import {useIntakeIndexQuery} from '../src/store-slices/intake-form-slice';
+import {getIntakeIndex, useIntakeIndexQuery} from '../src/store-slices/intake-form-slice';
+import {AppStore, storeWrapper} from "../src/storeWrapper";
 
 export interface IndexPageProps extends FormPageProps {
-  data?: IntakeFormData[]
+  data?: IntakeFormData[],
+  isFetching?: boolean
 }
 
 /**
@@ -31,11 +32,9 @@ const columns: FwTableColumn<IntakeFormData>[] = [
   }
 ];
 
-export default function IndexPage() {
+export default function IndexPage({data: inData}) {
   const {data = [], isFetching} = useIntakeIndexQuery();
-
-  console.log('intakeEntries: ', data);
-
+  console.log('inData:', inData);
   return (<React.Fragment>
     <section>
       <form action="/api/intake-form" method="post">
@@ -55,16 +54,24 @@ export default function IndexPage() {
   </React.Fragment>);
 }
 
-export const getServerSideProps: GetServerSideProps<IndexPageProps> = withIronSessionSsr(
-// @ts-ignore
-  async ({req: {session}}: NextPageContext): Promise<{ props: IndexPageProps }> => {
-    const {fieldsetName, user, currIntakeForm: intakeForm} = session;
+export const getServerSideProps: GetServerSideProps<IndexPageProps> =
+  storeWrapper.getServerSideProps((store: AppStore) =>
+    withIronSessionSsr(
+      // @ts-ignore
+      async ({req: {session}}: NextPageContext): Promise<{ props: IndexPageProps }> => {
+        const {fieldsetName, user, currIntakeForm: intakeForm} = session;
 
-    return {
-      props: {
-        fieldsetName: fieldsetName ?? CONTACT_INFO_SYMBOL,
-        user: user ?? null,
-        intakeForm: intakeForm ?? null
-      }
-    }
-  }, sessionConfig);
+        await store.dispatch(getIntakeIndex());
+        const data = store.getState();
+
+        console.log('store', data?.api?.queries['intakeIndex(undefined)']);
+
+        return {
+          props: {
+            fieldsetName: fieldsetName ?? CONTACT_INFO_SYMBOL,
+            user: user ?? null,
+            intakeForm: intakeForm ?? null,
+            // data: []
+          }
+        }
+      }, sessionConfig));

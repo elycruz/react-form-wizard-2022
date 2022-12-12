@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from "react";
 import {NextPrevAndSaveButtons} from "./next-prev-and-save-buttons";
 import {FormEventHandler, MouseEventHandler} from "react";

@@ -25,20 +25,22 @@ async function handleIntakeFormStart(req: NextApiRequest, res: NextApiResponse) 
     // Fetch submitted intake forms
     case 'GET':
       const out = storage.getRange({}).asArray ?? [];
-      console.log(`${req.url} output`, out/*, Array.from(storage.getKeys())*/);
       return res.status(200).json(out);
 
     // Perform "pseudo" session initialization and set our first fieldset to show and redirect to it
     case 'POST':
       const csrfToken = uuidv4();
+
       // Reset user Application State
       session.fieldsetName = 'contact-info';
       session.currIntakeForm = {id: uuidv4()};
       session.csrfToken = csrfToken;
+
       await session.save();
+
       return res.redirect(307, `//${req.headers.host}/contact-info`);
 
-    // Return response "as is" otherwise
+    // Otherwise return response "as is"
     default:
       return res;
   }
